@@ -320,3 +320,231 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:459)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
 	... 63 more
+2019-10-26 17:37:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, ID_USUARIO VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, id_usuario varchar(255), primary key (id)) [42001-199]
+2019-10-26 17:37:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 17:37:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 17:37:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKGEI2PU0C3QYEA3BJHOWFWDIJB FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FKgei2pu0c3qyea3bjhowfwdijb foreign key (id_usuario) references usuario [42001-199]
+2019-10-26 17:38:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, ID_USUARIO VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, id_usuario varchar(255), primary key (id)) [42001-199]
+2019-10-26 17:38:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 17:38:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 17:38:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKGEI2PU0C3QYEA3BJHOWFWDIJB FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FKgei2pu0c3qyea3bjhowfwdijb foreign key (id_usuario) references usuario [42001-199]
+2019-10-26 17:39:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, ID_USUARIO VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, id_usuario varchar(255), primary key (id)) [42001-199]
+2019-10-26 17:39:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 17:39:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 17:39:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKGEI2PU0C3QYEA3BJHOWFWDIJB FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FKgei2pu0c3qyea3bjhowfwdijb foreign key (id_usuario) references usuario [42001-199]
+2019-10-26 17:41:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, ID_USUARIO VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, id_usuario varchar(255), primary key (id)) [42001-199]
+2019-10-26 17:41:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 17:41:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 17:41:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKGEI2PU0C3QYEA3BJHOWFWDIJB FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FKgei2pu0c3qyea3bjhowfwdijb foreign key (id_usuario) references usuario [42001-199]
+2019-10-26 21:14:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, ID_USUARIO VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, id_usuario varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:14:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:14:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:14:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKGEI2PU0C3QYEA3BJHOWFWDIJB FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FKgei2pu0c3qyea3bjhowfwdijb foreign key (id_usuario) references usuario [42001-199]
+2019-10-26 21:15:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:15:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:15:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:15:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:15:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA INTEGER, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha integer, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:15:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:15:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:15:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:23:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:23:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:23:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:23:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:23:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:23:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:23:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:23:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:23:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:25:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:25:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:25:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:25:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:34:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:34:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:34:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:34:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:40:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:40:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:40:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:40:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:42:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT NOT NULL, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint not null, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:42:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:42:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:42:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:42:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:42:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:42:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:42:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:43:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:43:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:43:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:43:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-26 21:43:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-26 21:43:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-26 21:43:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-26 21:43:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]
+2019-10-27 10:41:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE LIKE[*] (ID BIGINT NOT NULL, ID_CAMPANHA BIGINT, EMAIL VARCHAR(255), PRIMARY KEY (ID)) "; expected "identifier"; SQL statement:
+create table like (id bigint not null, id_campanha bigint, email varchar(255), primary key (id)) [42001-199]
+2019-10-27 10:41:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE CAMPANHA_LIKES ADD CONSTRAINT FKJH4JM3J2TUUPBOX33LRCEBO1D FOREIGN KEY (LIKES_ID) REFERENCES LIKE[*] "; expected "identifier"; SQL statement:
+alter table campanha_likes add constraint FKjh4jm3j2tuupbox33lrcebo1d foreign key (likes_id) references like [42001-199]
+2019-10-27 10:41:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FKHTFCBCWJP7GY525SW5H91UBQT FOREIGN KEY (ID_CAMPANHA) REFERENCES CAMPANHA "; expected "identifier"; SQL statement:
+alter table like add constraint FKhtfcbcwjp7gy525sw5h91ubqt foreign key (id_campanha) references campanha [42001-199]
+2019-10-27 10:41:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "ALTER TABLE LIKE[*] ADD CONSTRAINT FK6PPLJ48QGB4QSDW6PVJE5UNSD FOREIGN KEY (EMAIL) REFERENCES USUARIO "; expected "identifier"; SQL statement:
+alter table like add constraint FK6pplj48qgb4qsdw6pvje5unsd foreign key (email) references usuario [42001-199]

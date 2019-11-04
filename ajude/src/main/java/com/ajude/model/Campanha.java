@@ -28,7 +28,6 @@ public class Campanha {
     private String url;
     private String descricao;
     private String deadLine;
-    //Pode ser um enum
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
@@ -36,7 +35,7 @@ public class Campanha {
     @ManyToOne
     private Usuario dono;
 	private int likesCount;
-	private int comentCout;
+	private int comentCount;
 
     public Campanha(){
         super();
@@ -50,7 +49,7 @@ public class Campanha {
         this.url = makeUrl(this.nomeCurto);
         this.status = StatusCampanha.ATIVA;
         this.likesCount = 0;
-        this.comentCout = 0;
+        this.comentCount = 0;
         this.doacoes = 0.0;
     }
 
@@ -133,15 +132,15 @@ public class Campanha {
 	}
 
 	public int getComentariosCount() {
-		return this.comentCout;
+		return this.comentCount;
 	}
 
 	public void addComentariosCount() {
-		this.comentCout++;
+		this.comentCount++;
 	}
 	
 	public void subComentariosCount() {
-		this.comentCout--;
+		this.comentCount--;
 	}
 	
 	public Double getDoacoes() {

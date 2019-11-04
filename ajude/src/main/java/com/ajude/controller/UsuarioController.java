@@ -1,5 +1,7 @@
 package com.ajude.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +26,10 @@ public class UsuarioController {
 	@RequestMapping("/usuario")
 	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String email) {
 		return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
+	}
+	
+	@RequestMapping("/usuario/list")
+	public ResponseEntity<Collection<Usuario>> recuperarUsuarios() {
+		return new ResponseEntity<Collection<Usuario>>(this.usuarioService.recuperarUsuarios(), HttpStatus.OK);
 	}
 }

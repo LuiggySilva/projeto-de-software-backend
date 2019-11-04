@@ -1,5 +1,7 @@
 package com.ajude.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
@@ -13,15 +15,17 @@ public class UsuarioService {
 
 	public Usuario cadastrarUsuario(Usuario u) {
 		try {
+
 			Usuario user = this.recuperarUsuario(u.getEmail());
 			if(!(user == null)) {
+				//usuario ja existe
 				return user;
 			}
+			throw new NullPointerException("erero");
 		} catch (Exception e) {
 			this.usuariosDAO.save(u);
 			return this.recuperarUsuario(u.getEmail());
 		}
-		return null;
 	}
 	
 	public Usuario recuperarUsuario(String email) {
@@ -52,6 +56,10 @@ public class UsuarioService {
 			return null;
 		}
 		return u;
+	}
+
+	public Collection<Usuario> recuperarUsuarios() {
+		return this.usuariosDAO.findAll();
 	}
 	
 }

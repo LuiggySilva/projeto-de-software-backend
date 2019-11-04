@@ -14,6 +14,7 @@ public class Usuario {
 	private String senha;
 	
 	public Usuario() {
+			super();
 	}
 	
 	public Usuario(String nome, String sobrenome, String email, String cartaoCredito, String senha) {

@@ -1,14 +1,18 @@
 package com.ajude.model;
 
-import sun.util.calendar.BaseCalendar;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ajude.DAO.ComentarioDAO;
+import com.ajude.DAO.LikeDAO;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.text.Normalizer;
@@ -27,13 +31,12 @@ public class Campanha {
     //Pode ser um enum
     private StatusCampanha status;
     private Double meta;
+    private Double doacoes;
     // atributo doacoes faltando aqui
     @ManyToOne
     private Usuario dono;
-    @OneToMany
-    private List<Comentario> comentarios;
-    @OneToMany
-    private List<Like> likes;
+	private int likesCount;
+	private int comentCout;
 
     public Campanha(){
         super();
@@ -46,10 +49,10 @@ public class Campanha {
         this.dono = dono;
         this.url = makeUrl(this.nomeCurto);
         this.status = StatusCampanha.ATIVA;
-        this.comentarios = new LinkedList<Comentario>();
-        this.likes = new LinkedList<Like>();
+        this.likesCount = 0;
+        this.comentCout = 0;
+        this.doacoes = 0.0;
     }
-
 
     private static String makeUrl(String str) {
         String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
@@ -60,8 +63,6 @@ public class Campanha {
 	public long getId() {
 		return idCampanha;
 	}
-
-
 
 	public String getNomeCurto() {
 		return nomeCurto;
@@ -119,17 +120,68 @@ public class Campanha {
 		this.dono = dono;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
+	public int getLikes() {
+		return likesCount;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void addLike() {
+		this.likesCount++;
+	}
+	
+	public void subLike() {
+		this.likesCount--;
 	}
 
-	public List<Comentario> getComentarios() {
-		return comentarios;
+	public int getComentariosCount() {
+		return this.comentCout;
 	}
-    
+
+	public void addComentariosCount() {
+		this.comentCout++;
+	}
+	
+	public void subComentariosCount() {
+		this.comentCout--;
+	}
+	
+	public Double getDoacoes() {
+		return doacoes;
+	}
+	
+	public void setDoacoes(Double doacoes) {
+		this.doacoes += doacoes;
+	}
+	
+	public String porcentagemMeta() {
+		return Double.toString( (this.getDoacoes() / this.getMeta()) * 100.0 ) + "%";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (idCampanha ^ (idCampanha >>> 32));
+		result = prime * result + ((nomeCurto == null) ? 0 : nomeCurto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Campanha other = (Campanha) obj;
+		if (idCampanha != other.idCampanha)
+			return false;
+		if (nomeCurto == null) {
+			if (other.nomeCurto != null)
+				return false;
+		} else if (!nomeCurto.equals(other.nomeCurto))
+			return false;
+		return true;
+	}  
     
 }

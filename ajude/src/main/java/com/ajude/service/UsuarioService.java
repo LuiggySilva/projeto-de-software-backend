@@ -1,7 +1,5 @@
 package com.ajude.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
@@ -11,25 +9,49 @@ import com.ajude.model.Usuario;
 public class UsuarioService {
 	
 	@Autowired
-	private UsuarioDAO<Usuario, String> usuario;
+	private UsuarioDAO<Usuario, String> usuariosDAO;
 
 	public Usuario cadastrarUsuario(Usuario u) {
 		try {
-			Usuario user = usuario.findById(u.getEmail()).get();
-			return user;
+			Usuario user = this.recuperarUsuario(u.getEmail());
+			if(!(user == null)) {
+				return user;
+			}
 		} catch (Exception e) {
-			this.usuario.save(u);
-			return this.usuario.findById(u.getEmail()).get();
+			this.usuariosDAO.save(u);
+			return this.recuperarUsuario(u.getEmail());
 		}
+		return null;
 	}
 	
 	public Usuario recuperarUsuario(String email) {
 		try {
-			Usuario user = usuario.findById(email).get();
+			Usuario user = usuariosDAO.findById(email).get();
 			return user;
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public boolean verificaUsuario(String email, String senha) {
+		Usuario u = recuperarUsuario(email);
+		if(u == null || !u.getSenha().equals(senha)) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	public Usuario removeUsuario(String email) {
+		Usuario u;
+		try {
+			u = usuariosDAO.findById(email).get();
+			usuariosDAO.deleteById(email);
+		} catch (Exception e) {
+			return null;
+		}
+		return u;
 	}
 	
 }

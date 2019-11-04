@@ -34,7 +34,7 @@ public class Filtro extends GenericFilterBean {
 		String token = header.substring(TOKEN_INDEX);
 
 		try {
-			Jwts.parser().setSigningKey("login do batman").parseClaimsJws(token).getBody();
+			Jwts.parser().setSigningKey("RASENGAN").parseClaimsJws(token).getBody();
 		} catch(Exception e) {
 
            		((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());

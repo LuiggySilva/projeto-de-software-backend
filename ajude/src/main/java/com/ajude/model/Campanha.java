@@ -31,11 +31,12 @@ public class Campanha {
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
-    // atributo doacoes faltando aqui
     @ManyToOne
     private Usuario dono;
 	private int likesCount;
 	private int comentCount;
+	@OneToMany
+	private List<Comentario> comentarios;
 
     public Campanha(){
         super();
@@ -51,6 +52,7 @@ public class Campanha {
         this.likesCount = 0;
         this.comentCount = 0;
         this.doacoes = 0.0;
+        this.comentarios = new ArrayList<Comentario>();
     }
 
     private static String makeUrl(String str) {
@@ -153,6 +155,14 @@ public class Campanha {
 	
 	public String porcentagemMeta() {
 		return Double.toString( (this.getDoacoes() / this.getMeta()) * 100.0 ) + "%";
+	}
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+	
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.ajude.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.CampanhaDAO;
@@ -34,6 +37,13 @@ public class CampanhaService {
 	public Campanha recuperaCampanha(long id) {
 		try {
 			Campanha camp = campanhasDAO.findById(id).get();
+			ArrayList<Comentario> c = new ArrayList<Comentario>();
+			for (Comentario coment : this.comentariosDAO.findAll()) {
+				if (coment.getCampanha().equals(camp)) {
+					c.add(coment);
+				}
+			}
+			camp.setComentarios(c);
 			return camp;
 		} catch (Exception e) {
 			return null;
@@ -156,5 +166,9 @@ public class CampanhaService {
 			}
 		}
 		return false;
+	}
+
+	public Collection<Campanha> recuperarCampanhas() {
+		return this.campanhasDAO.findAll();
 	}
 }

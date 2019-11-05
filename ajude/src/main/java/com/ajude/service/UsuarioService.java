@@ -14,18 +14,14 @@ public class UsuarioService {
 	private UsuarioDAO<Usuario, String> usuariosDAO;
 
 	public Usuario cadastrarUsuario(Usuario u) {
-		try {
-
-			Usuario user = this.recuperarUsuario(u.getEmail());
-			if(!(user == null)) {
-				//usuario ja existe
-				return user;
-			}
-			throw new NullPointerException("erero");
-		} catch (Exception e) {
+		Usuario user = this.recuperarUsuario(u.getEmail());
+		if(!(user == null)) { 			//usuario ja existe
+			return user;
+		}
+		else {
 			this.usuariosDAO.save(u);
 			return this.recuperarUsuario(u.getEmail());
-		}
+		}			
 	}
 	
 	public Usuario recuperarUsuario(String email) {
@@ -52,10 +48,10 @@ public class UsuarioService {
 		try {
 			u = usuariosDAO.findById(email).get();
 			usuariosDAO.deleteById(email);
+			return u;
 		} catch (Exception e) {
 			return null;
 		}
-		return u;
 	}
 
 	public Collection<Usuario> recuperarUsuarios() {

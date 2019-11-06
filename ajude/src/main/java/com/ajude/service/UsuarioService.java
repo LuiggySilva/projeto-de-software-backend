@@ -7,11 +7,20 @@ import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
 import com.ajude.model.Usuario;
 
+import javax.servlet.ServletException;
+
+
+
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	private UsuarioDAO<Usuario, String> usuariosDAO;
+	@Autowired
+	private  JWTService jwtService;
+
+	public UsuarioService() {
+	}
 
 	public Usuario cadastrarUsuario(Usuario u) {
 		Usuario user = this.recuperarUsuario(u.getEmail());
@@ -22,6 +31,18 @@ public class UsuarioService {
 			this.usuariosDAO.save(u);
 			return this.recuperarUsuario(u.getEmail());
 		}			
+	}
+
+	public Usuario recuperaUsuarioToken(String token){
+		String email;
+		Usuario usuario;
+		try {
+			email = jwtService.getSujeitoDoToken(token);
+		}catch(ServletException e){
+			return null;
+		}
+		return this.recuperarUsuario(email);
+
 	}
 	
 	public Usuario recuperarUsuario(String email) {

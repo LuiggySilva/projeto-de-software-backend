@@ -1,48 +1,45 @@
 package com.ajude.model;
 
-import javax.persistence.Entity;
+
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.ajude.DAO.ComentarioDAO;
-import com.ajude.DAO.LikeDAO;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.text.Normalizer;
-import java.util.regex.Pattern;
-
 @Entity
 public class Campanha {
 
-    @Id @GeneratedValue
-    private long idCampanha;
+    @Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
     private String nomeCurto;
-    //Gerado pelo frontend
     private String url;
     private String descricao;
     private String deadLine;
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
-    // atributo doacoes faltando aqui
+
     @ManyToOne
     private Usuario dono;
 	private int likesCount;
 	private int comentCount;
+	@OneToMany
+	private List<Comentario> comentarios;
 
     public Campanha(){
-        super();
+    	super();
     }
-
+    
     public  Campanha(String nomeCurto,String descricao, String deadLine,Double meta,Usuario dono){
-        this.nomeCurto = nomeCurto;
+    	super();
+    	this.nomeCurto = nomeCurto;
         this.descricao = descricao;
         this.meta = meta;
         this.dono = dono;
@@ -51,6 +48,7 @@ public class Campanha {
         this.likesCount = 0;
         this.comentCount = 0;
         this.doacoes = 0.0;
+        comentarios = new ArrayList<Comentario>();
     }
 
     private static String makeUrl(String str) {
@@ -60,9 +58,12 @@ public class Campanha {
     }
 
 	public long getId() {
-		return idCampanha;
+		return this.id;
 	}
 
+	public void setId(long id){
+    	this.id = id;
+	}
 	public String getNomeCurto() {
 		return nomeCurto;
 	}
@@ -138,7 +139,15 @@ public class Campanha {
 	public void addComentariosCount() {
 		this.comentCount++;
 	}
-	
+
+	public int getComentCount() {
+		return comentCount;
+	}
+
+	public void setComentCount(int comentCount) {
+		this.comentCount = comentCount;
+	}
+
 	public void subComentariosCount() {
 		this.comentCount--;
 	}
@@ -154,12 +163,20 @@ public class Campanha {
 	public String porcentagemMeta() {
 		return Double.toString( (this.getDoacoes() / this.getMeta()) * 100.0 ) + "%";
 	}
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+	
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (idCampanha ^ (idCampanha >>> 32));
+		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nomeCurto == null) ? 0 : nomeCurto.hashCode());
 		return result;
 	}
@@ -173,7 +190,7 @@ public class Campanha {
 		if (getClass() != obj.getClass())
 			return false;
 		Campanha other = (Campanha) obj;
-		if (idCampanha != other.idCampanha)
+		if (id != other.id)
 			return false;
 		if (nomeCurto == null) {
 			if (other.nomeCurto != null)
@@ -181,6 +198,12 @@ public class Campanha {
 		} else if (!nomeCurto.equals(other.nomeCurto))
 			return false;
 		return true;
-	}  
+	} 
+	
+	@Override
+	public String toString() {
+		return "Nome Curto: " + this.nomeCurto + " \n" + "Descricao " + this.descricao + " \n" + "id: " + this.id + "\n" + "email : "  + this.getDono().getEmail();
+		
+	}
     
 }

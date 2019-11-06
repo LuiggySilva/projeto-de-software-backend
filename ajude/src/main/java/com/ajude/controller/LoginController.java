@@ -28,7 +28,7 @@ public class LoginController {
 		if (US.recuperarUsuario(usuario.getEmail()) == null) {
 			throw new ServletException("Usuario nao encontrado!");
 		}
-		if (US.verificaUsuario(usuario.getEmail(), usuario.getSenha())) {
+		if (!US.verificaUsuario(usuario.getEmail(), usuario.getSenha())) {
 			throw new ServletException("Senha invalida!");
 		}
 		String token = JWTS.geraToken(usuario.getEmail());

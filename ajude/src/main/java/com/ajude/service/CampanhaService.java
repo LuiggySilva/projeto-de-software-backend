@@ -1,14 +1,16 @@
 package com.ajude.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.ajude.model.*;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.CampanhaDAO;
 import com.ajude.DAO.ComentarioDAO;
 import com.ajude.DAO.LikeDAO;
-import com.ajude.model.Campanha;
-import com.ajude.model.Comentario;
-import com.ajude.model.Like;
-import com.ajude.model.Usuario;
+
 
 @Service
 public class CampanhaService {
@@ -19,28 +21,40 @@ public class CampanhaService {
     private ComentarioDAO<Comentario, Long> comentariosDAO;
     @Autowired
     private LikeDAO<Like, Long> likesDAO;
-	
-	public Campanha cadastrarCampanha(Campanha c) {
-		Campanha camp = recuperaCampanha(c.getId());
-		if(!(camp == null)) {
-			return camp;
+	@Autowired
+	private UsuarioService usuarioService;
+
+
+	public Campanha cadastrarCampanha(CampanhaDTO c, String token) {
+		Usuario user = usuarioService.recuperaUsuarioToken(token);
+		if(user != null) {
+			Campanha novaCampanha = c.makeCampanha(user);
+			System.out.println(novaCampanha.toString());
+			campanhasDAO.save(novaCampanha);
+			return  novaCampanha;
 		}
 		else {
-			this.campanhasDAO.save(c);
-			return this.recuperaCampanha(c.getId());
+			return null;
 		}
 	}
 
 	public Campanha recuperaCampanha(long id) {
 		try {
 			Campanha camp = campanhasDAO.findById(id).get();
+			ArrayList<Comentario> c = new ArrayList<Comentario>();
+			for (Comentario coment : this.comentariosDAO.findAll()) {
+				if (coment.getCampanha().equals(camp)) {
+					c.add(coment);
+				}
+			}
+			camp.setComentarios(c);
 			return camp;
 		} catch (Exception e) {
 			return null;
 		}
 	}
 	
-	public boolean darLikeCampanha(Usuario u, long id) { 
+	public boolean darLikeCampanha(Usuario u, long id) {
 		Campanha c = this.recuperaCampanha(id);
 		if (c == null) {
 			return false;
@@ -56,7 +70,7 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean removerLikeCampanha(Usuario u, long id) { 
+	public boolean removerLikeCampanha(Usuario u, long id) {
 		Campanha c = this.recuperaCampanha(id);
 		if (c == null) {
 			return false;
@@ -72,20 +86,21 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean fazerComentarioCampanha(Usuario u, long id, String comentario) { 
+	public boolean fazerComentarioCampanha(String token, long id, String comentario) {
 		Campanha c = this.recuperaCampanha(id);
-		if (c == null) {
+		Usuario usuario = usuarioService.recuperaUsuarioToken(token);
+		if (usuario == null) {
 			return false;
 		}
 		else {
-			this.comentariosDAO.save(new Comentario(c, u, comentario));
+			this.comentariosDAO.save(new Comentario(c, usuario, comentario));
 			c.addComentariosCount();
 			this.campanhasDAO.save(c);
 			return true;
 		}
 	}
 	
-	public boolean removerComentarioCampanha(Usuario u, long idCamp, long idComent) { 
+	public boolean removerComentarioCampanha(Usuario u, long idCamp, long idComent) {
 		Campanha c = this.recuperaCampanha(idCamp);
 		if (c == null) {
 			return false;
@@ -98,7 +113,7 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean darRespostaComentarioCampanha(Usuario u, long idCamp, long idComent,  String resposta) { 
+	public boolean darRespostaComentarioCampanha(Usuario u, long idCamp, long idComent,  String resposta) {
 		Campanha c = this.recuperaCampanha(idCamp);
 		if (c == null) {
 			return false;
@@ -117,7 +132,7 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean removerRespostaComentarioCampanha(Usuario u, long idCamp, long idComent, long idRepost) { 
+	public boolean removerRespostaComentarioCampanha(Usuario u, long idCamp, long idComent, long idRepost) {
 		Campanha c = this.recuperaCampanha(idCamp);
 		if (c == null) {
 			return false;
@@ -156,5 +171,9 @@ public class CampanhaService {
 			}
 		}
 		return false;
+	}
+
+	public Collection<Campanha> recuperarCampanhas() {
+		return this.campanhasDAO.findAll();
 	}
 }

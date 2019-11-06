@@ -32,4 +32,12 @@ public class UsuarioController {
 	public ResponseEntity<Collection<Usuario>> recuperarUsuarios() {
 		return new ResponseEntity<Collection<Usuario>>(this.usuarioService.recuperarUsuarios(), HttpStatus.OK);
 	}
+	
+	@RequestMapping("/teste")
+	public void tst() {
+		Usuario u = new Usuario("Luiggy", "Silva", "luiggy.silva@gmail.com", "666", "12345");
+		this.usuarioService.cadastrarUsuario(u);
+	}
+	
+	
 }

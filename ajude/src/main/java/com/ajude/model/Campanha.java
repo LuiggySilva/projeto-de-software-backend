@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Campanha {
 
@@ -25,9 +27,11 @@ public class Campanha {
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
-
+    
+    @JsonIgnore
     @ManyToOne
     private Usuario dono;
+    
 	private int likesCount;
 	private int comentCount;
 	@OneToMany
@@ -43,6 +47,7 @@ public class Campanha {
         this.descricao = descricao;
         this.meta = meta;
         this.dono = dono;
+        this.deadLine = deadLine;
         this.url = makeUrl(this.nomeCurto);
         this.status = StatusCampanha.ATIVA;
         this.likesCount = 0;
@@ -129,7 +134,9 @@ public class Campanha {
 	}
 	
 	public void subLike() {
-		this.likesCount--;
+		if(this.likesCount > 0) {
+			this.likesCount--;
+		}
 	}
 
 	public int getComentariosCount() {

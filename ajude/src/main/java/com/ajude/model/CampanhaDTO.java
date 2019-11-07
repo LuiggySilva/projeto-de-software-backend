@@ -1,17 +1,6 @@
 package com.ajude.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
-
 public class CampanhaDTO{
-
 
         private String nomeCurto;
         private String descricao;
@@ -70,7 +59,7 @@ public class CampanhaDTO{
         }
 
         public Campanha makeCampanha(Usuario user){
-            return  new Campanha(nomeCurto, descricao, deadLine, meta , user);
+            return new Campanha(nomeCurto, descricao, deadLine, meta , user);
         }
 
 

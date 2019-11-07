@@ -94,6 +94,10 @@ public class Comentario {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@Override
 	public int hashCode() {

@@ -29,7 +29,6 @@ public class CampanhaService {
 		Usuario user = usuarioService.recuperaUsuarioToken(token);
 		if(user != null) {
 			Campanha novaCampanha = c.makeCampanha(user);
-			System.out.println(novaCampanha.toString());
 			campanhasDAO.save(novaCampanha);
 			return  novaCampanha;
 		}
@@ -54,46 +53,45 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean darLikeCampanha(Usuario u, long id) {
+	public boolean Like(String token, long id) {
 		Campanha c = this.recuperaCampanha(id);
-		if (c == null) {
-			return false;
-		}
-		else if (this.verificaLike(u)) {
+		Usuario u = this.usuarioService.recuperaUsuarioToken(token);
+		if (c == null || u == null) {
 			return false;
 		}
 		else {
-			this.likesDAO.save(new Like(u, c));
-			c.addLike();
-			this.campanhasDAO.save(c);
+			if(this.verificaLike(u, c)) {
+				this.removerLikeCampanha(c, this.getLikeId(u, c));
+			}
+			else {
+				this.darLikeCampanha(u, c);
+			}
 			return true;
 		}
 	}
 	
-	public boolean removerLikeCampanha(Usuario u, long id) {
-		Campanha c = this.recuperaCampanha(id);
-		if (c == null) {
-			return false;
-		}
-		else if (!this.verificaLike(u)) {
-			return false;
-		}
-		else {
-			this.likesDAO.delete(new Like(u, c));
-			c.subLike();
-			this.campanhasDAO.save(c);
-			return true;
-		}
+	private void darLikeCampanha(Usuario u, Campanha c) {
+		c.addLike();
+		this.likesDAO.save(new Like(u, c));
+		
+		this.campanhasDAO.save(c);
 	}
 	
-	public boolean fazerComentarioCampanha(String token, long id, String comentario) {
+	private void removerLikeCampanha(Campanha c, long id) {
+		c.subLike();
+		this.likesDAO.deleteById(id);
+		this.campanhasDAO.save(c);
+	}
+	
+	public boolean fazerComentarioCampanha(String token, long id, Comentario comentario) {
 		Campanha c = this.recuperaCampanha(id);
 		Usuario usuario = usuarioService.recuperaUsuarioToken(token);
 		if (usuario == null) {
 			return false;
 		}
 		else {
-			this.comentariosDAO.save(new Comentario(c, usuario, comentario));
+			Comentario coment = new Comentario(c, usuario, comentario.getComentario());
+			this.comentariosDAO.save(coment);
 			c.addComentariosCount();
 			this.campanhasDAO.save(c);
 			return true;
@@ -164,16 +162,31 @@ public class CampanhaService {
 		}
 	}
 	
-	private boolean verificaLike(Usuario u) {
+	private boolean verificaLike(Usuario u, Campanha c) {
 		for (Like like : this.likesDAO.findAll()) {
-			if(like.getUser().equals(u)) {
+			if(like.getUser().equals(u) && like.getCampanha().equals(c)) {
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	private long getLikeId(Usuario u, Campanha c) {
+		long id = -1;
+		for (Like like : this.likesDAO.findAll()) {
+			if(like.getUser().equals(u) && like.getCampanha().equals(c)) {
+				id = like.getId();
+				break;
+			}
+		}
+		return id;
+	}
 
 	public Collection<Campanha> recuperarCampanhas() {
 		return this.campanhasDAO.findAll();
+	}
+	
+	public Collection<Like> like() {
+		return this.likesDAO.findAll();
 	}
 }

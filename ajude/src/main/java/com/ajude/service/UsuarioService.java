@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
 import com.ajude.model.Usuario;
+import com.ajude.model.UsuarioDTO;
 
 import javax.servlet.ServletException;
 
@@ -35,13 +36,24 @@ public class UsuarioService {
 
 	public Usuario recuperaUsuarioToken(String token){
 		String email;
-		Usuario usuario;
 		try {
 			email = jwtService.getSujeitoDoToken(token);
 		}catch(ServletException e){
 			return null;
 		}
 		return this.recuperarUsuario(email);
+
+	}
+	
+	public UsuarioDTO recuperaUsuarioDTOToken(String token){
+		String email;
+		try {
+			email = jwtService.getSujeitoDoToken(token);
+		}catch(ServletException e){
+			return null;
+		}
+		Usuario u = this.recuperarUsuario(email);
+		return new UsuarioDTO(u.getNome(), u.getSobrenome(), u.getEmail());
 
 	}
 	

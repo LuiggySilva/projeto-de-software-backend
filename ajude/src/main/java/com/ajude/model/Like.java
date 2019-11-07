@@ -47,6 +47,14 @@ public class Like {
     public void setUser(Usuario user) {
 		this.user = user;
 	}
+    
+    public long getId() {
+		return id;
+	}
+    
+    public void setId(long id) {
+		this.id = id;
+	}
 
 	@Override
 	public int hashCode() {

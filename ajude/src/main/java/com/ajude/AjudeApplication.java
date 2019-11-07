@@ -1,9 +1,13 @@
 package com.ajude;
 
+import java.sql.SQLException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -38,4 +42,14 @@ public class AjudeApplication {
 		return filterRB;
 	}
 	*/
+	@Configuration
+	@ComponentScan
+	public class JavaConfiguration {
+	 //... other beans
+	  
+	 @Bean(initMethod="start",destroyMethod="stop")
+	 public org.h2.tools.Server h2WebConsonleServer () throws SQLException {
+	   return org.h2.tools.Server.createWebServer("-web","-webAllowOthers","-webDaemon","-webPort", "8082");
+	 }
+	}
 }

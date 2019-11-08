@@ -45,7 +45,7 @@ public class JavaMailApp {
 	 
 	      message.setRecipients(Message.RecipientType.TO, toUser);
 	      message.setSubject("AJUDE");//Assunto
-	      message.setText("BEM VINDO AO AJUDE PORRA!");
+	      message.setText("BEM VINDO AO AJUDE!");
 	      /**Método para enviar a mensagem criada*/
 	      Transport.send(message);
 	 

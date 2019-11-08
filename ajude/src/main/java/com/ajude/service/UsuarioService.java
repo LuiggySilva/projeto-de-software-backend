@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
 import com.ajude.model.Usuario;
 import com.ajude.model.UsuarioDTO;
+import com.ajude.util.JavaMailApp;
 
 import javax.servlet.ServletException;
 
@@ -30,6 +31,7 @@ public class UsuarioService {
 		}
 		else {
 			this.usuariosDAO.save(u);
+			JavaMailApp.sendEmail(u.getEmail());
 			return this.recuperarUsuario(u.getEmail());
 		}			
 	}

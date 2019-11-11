@@ -2,44 +2,73 @@ package com.ajude.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 public class Comentario {
 	
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	
 	@ManyToOne
-	@JoinColumn(name =  "idCampanha")
 	@JsonIgnore
+	private Comentario comentarioPai;
+
+	@ManyToOne//(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@JoinColumn(name = "campanha_id")
 	private Campanha campanha;
 	
 	@ManyToOne
-	@JoinColumn(name = "email")
 	@JsonIgnore
 	private Usuario usuario;
 	private String data;
 	private String comentario;
-	private ArrayList<Comentario> respostas;
+	
+	
+	@OneToMany(mappedBy = "comentarioPai",
+			cascade = CascadeType.ALL)
+	private List<Comentario> respostas;
 	
     public Comentario(){
         super();
     }
     
-    public Comentario(Campanha campanha, Usuario usuario, String comentario) {
+    public Comentario(Campanha campanha, Usuario usuario, String comentarioContent) {
+    	super();
     	this.campanha = campanha;
     	this.usuario= usuario;
     	this.data = (new Date()).toString();
-    	this.comentario = comentario;
+    	this.comentario = comentarioContent;
     	this.respostas = new ArrayList<Comentario>();
     }
 
+    public Comentario(Usuario usuario, String comentarioContent,Comentario comentarioPai) {
+    	super();
+    	this.usuario= usuario;
+    	this.data = (new Date()).toString();
+    	this.comentario = comentarioContent;
+    	this.comentarioPai = comentarioPai;
+    	this.respostas = new ArrayList<Comentario>();
+    }
 	public Campanha getCampanha() {
 		return campanha;
 	}
@@ -68,25 +97,9 @@ public class Comentario {
 		this.comentario = comentario;
 	}
     
-    public ArrayList<Comentario> getRespostas() {
+    public List<Comentario> getRespostas() {
 		return respostas;
 	}
-    
-    public void setRespostas(Comentario resposta) {
-		this.respostas.add(resposta);
-	}
-    
-	public void removerResposta(long idRepost) {
-		Comentario x = null;
-		for (Comentario comentario : respostas) {
-			if (comentario.getId() == idRepost) {
-				x = comentario;
-				break;
-			}
-		}
-		this.respostas.remove(x);
-	}
-	
 	public long getId() {
 		return id;
 	}
@@ -98,6 +111,19 @@ public class Comentario {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Comentario getComentarioPai() {
+		return comentarioPai;
+	}
+
+	public void setComentarioPai(Comentario comentarioPai) {
+		this.comentarioPai = comentarioPai;
+	}
+
+	public void setRespostas(List<Comentario> respostas) {
+		this.respostas = respostas;
+	}
+
 
 	@Override
 	public int hashCode() {

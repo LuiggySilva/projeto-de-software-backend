@@ -51,7 +51,7 @@ public class CampanhaController {
 	}
 	
 	@RequestMapping("/campanha/{id}")
-	public ResponseEntity<Campanha> recuperarCampanha(@PathVariable int id) {
+	public ResponseEntity<Campanha> recuperarCampanha(@PathVariable long id) {
 		return new ResponseEntity<Campanha>(this.campanhaService.recuperaCampanha(id), HttpStatus.OK);
 	}
 	
@@ -64,5 +64,39 @@ public class CampanhaController {
 	public ResponseEntity<Collection<Like>> testando() {
 		return new ResponseEntity<Collection<Like>>(this.campanhaService.like(), HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/campanha/comentario/{id}")
+	public ResponseEntity<Comentario> deletarComentario(@PathVariable long id,@RequestHeader("Authorization") String header){
+		boolean resul = this.campanhaService.removerComentarioCampanha(header, id);
+		if(resul) {
+			return new ResponseEntity<Comentario>(HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Comentario>(HttpStatus.UNAUTHORIZED);
+		}
+		
+	}
+	
+	@GetMapping("/comentario/list")
+	public ResponseEntity<Collection<Comentario>> listarComentariosTest(){
+		return new ResponseEntity<Collection<Comentario>> (this.campanhaService.comentarios(),HttpStatus.OK);
+	}
+	
+	@PutMapping("/campanha/comentario/resposta/{id}")
+	public ResponseEntity<Comentario> responderComentario(@PathVariable long id,@RequestHeader("Authorization") String header, @RequestBody Comentario comentario){
+		Comentario resul = campanhaService.responderComentarioCampanha(id, comentario, header);
+		if(resul != null) {
+			return new ResponseEntity<Comentario>(resul, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+//	//teste
+//	@GetMapping("/campanha/comentario/resposta/list")
+//	public ResponseEntity<Collection<ComentarioResposta>> listarComentariosRespostaTest(){
+//		return new ResponseEntity<Collection<ComentarioResposta>> (this.campanhaService.comentariosResposta(),HttpStatus.OK);
+//	}
 
 }

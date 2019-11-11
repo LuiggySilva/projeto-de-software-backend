@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -33,8 +34,10 @@ public class Campanha {
     private Usuario dono;
     
 	private int likesCount;
-	private int comentCount;
-	@OneToMany
+	private int comentCount ;
+	
+	@OneToMany(mappedBy = "campanha",
+			cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
 
     public Campanha(){
@@ -142,21 +145,13 @@ public class Campanha {
 	public int getComentariosCount() {
 		return this.comentCount;
 	}
-
-	public void addComentariosCount() {
-		this.comentCount++;
-	}
-
+	
 	public int getComentCount() {
 		return comentCount;
 	}
 
 	public void setComentCount(int comentCount) {
 		this.comentCount = comentCount;
-	}
-
-	public void subComentariosCount() {
-		this.comentCount--;
 	}
 	
 	public Double getDoacoes() {
@@ -179,6 +174,13 @@ public class Campanha {
 		this.comentarios = comentarios;
 	}
 
+	public void addComentariosCount() {
+		this.comentCount ++;
+	}
+	
+	public void subComentariosCount() {
+		this.comentCount --;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

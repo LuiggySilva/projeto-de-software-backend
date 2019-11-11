@@ -2,6 +2,7 @@ package com.ajude.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import com.ajude.model.*;
 import io.jsonwebtoken.SignatureException;
@@ -23,6 +24,8 @@ public class CampanhaService {
     private LikeDAO<Like, Long> likesDAO;
 	@Autowired
 	private UsuarioService usuarioService;
+	//@Autowired
+	//private ComentarioRespostaDAO<ComentarioResposta,Long> comentariosRespostaDAO;
 
 
 	public Campanha cadastrarCampanha(CampanhaDTO c, String token) {
@@ -46,7 +49,7 @@ public class CampanhaService {
 					c.add(coment);
 				}
 			}
-			camp.setComentarios(c);
+			//camp.setComentarios(c);
 			return camp;
 		} catch (Exception e) {
 			return null;
@@ -91,6 +94,7 @@ public class CampanhaService {
 		}
 		else {
 			Comentario coment = new Comentario(c, usuario, comentario.getComentario());
+			System.out.println(comentario.getComentario());
 			this.comentariosDAO.save(coment);
 			c.addComentariosCount();
 			this.campanhasDAO.save(c);
@@ -98,54 +102,44 @@ public class CampanhaService {
 		}
 	}
 	
-	public boolean removerComentarioCampanha(Usuario u, long idCamp, long idComent) {
-		Campanha c = this.recuperaCampanha(idCamp);
-		if (c == null) {
-			return false;
-		}
-		else {
+	//ccontador de comentarios na campnha nao implemntado aqui, a discutir...
+	public boolean removerComentarioCampanha(String token, long idComent) {
+		Usuario user = usuarioService.recuperaUsuarioToken(token);
+		Optional<Comentario> comentario = comentariosDAO.findById(idComent);
+		if (user != null && comentario.isPresent() && comentario.get().getUsuario().equals(user) ) {
 			this.comentariosDAO.deleteById(idComent);
-			c.subComentariosCount();
-			this.campanhasDAO.save(c);
 			return true;
 		}
-	}
-	
-	public boolean darRespostaComentarioCampanha(Usuario u, long idCamp, long idComent,  String resposta) {
-		Campanha c = this.recuperaCampanha(idCamp);
-		if (c == null) {
-			return false;
-		}
 		else {
-			try {
-				Comentario coment = this.comentariosDAO.findById(idComent).get();
-				coment.setRespostas(new Comentario(c, u, resposta));
-				this.comentariosDAO.save(coment);
-				c.addComentariosCount();
-				this.campanhasDAO.save(c);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+			return false;
 		}
 	}
 	
-	public boolean removerRespostaComentarioCampanha(Usuario u, long idCamp, long idComent, long idRepost) {
-		Campanha c = this.recuperaCampanha(idCamp);
-		if (c == null) {
-			return false;
+	public Comentario responderComentarioCampanha(long idComentario,  Comentario resposta,String token) {
+		Optional<Comentario> coment = comentariosDAO.findById(idComentario);
+		Usuario usuario = usuarioService.recuperaUsuarioToken(token);
+		
+		
+		if (coment.isPresent() && usuario != null) {
+			Comentario novaResposta = new Comentario(usuario,resposta.getComentario(),coment.get());
+			comentariosDAO.save(novaResposta);
+			return novaResposta;
 		}
 		else {
-			try {
-				Comentario coment = this.comentariosDAO.findById(idComent).get();
-				coment.removerResposta(idRepost);
-				this.comentariosDAO.save(coment);
-				c.subComentariosCount();
-				this.campanhasDAO.save(c);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+			return null;
+		}
+	}
+	public boolean removerRespostaComentarioCampanha(long idResposta,String token) {
+		Usuario usuario = usuarioService.recuperaUsuarioToken(token);
+		Optional<Comentario> resposta = comentariosDAO.findById(idResposta);
+	
+		
+		if ( usuario != null && resposta != null && resposta.get().getComentarioPai().getUsuario().equals(usuario)) {
+			comentariosDAO.deleteById(idResposta);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
@@ -189,4 +183,11 @@ public class CampanhaService {
 	public Collection<Like> like() {
 		return this.likesDAO.findAll();
 	}
+	
+	public Collection<Comentario> comentarios(){
+		return this.comentariosDAO.findAll();
+	}
+
+
+
 }

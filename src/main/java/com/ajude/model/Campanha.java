@@ -29,7 +29,7 @@ public class Campanha {
     private Double meta;
     private Double doacoes;
     
-    @JsonIgnore
+    
     @ManyToOne
     private Usuario dono;
     
@@ -120,8 +120,8 @@ public class Campanha {
 		this.meta = meta;
 	}
 
-	public Usuario getDono() {
-		return dono;
+	public String getDono() {
+		return dono.getEmail();
 	}
 
 	public void setDono(Usuario dono) {
@@ -211,7 +211,7 @@ public class Campanha {
 	
 	@Override
 	public String toString() {
-		return "Nome Curto: " + this.nomeCurto + " \n" + "Descricao " + this.descricao + " \n" + "id: " + this.id + "\n" + "email : "  + this.getDono().getEmail();
+		return "Nome Curto: " + this.nomeCurto + " \n" + "Descricao " + this.descricao + " \n" + "id: " + this.id + "\n" + "email : "  + this.getDono();
 		
 	}
     

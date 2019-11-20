@@ -38,7 +38,6 @@ public class Comentario {
 	private Campanha campanha;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Usuario usuario;
 	private String data;
 	private String comentario;
@@ -77,8 +76,8 @@ public class Comentario {
 		this.campanha = campanha;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getUsuario() {
+		return usuario.getEmail();
 	}
     
     public String getData() {

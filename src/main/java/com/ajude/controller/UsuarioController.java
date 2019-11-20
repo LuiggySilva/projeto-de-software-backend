@@ -2,13 +2,12 @@ package com.ajude.controller;
 
 import java.util.Collection;
 
+import com.ajude.model.Campanha;
+import com.ajude.model.Doacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ajude.model.Usuario;
 import com.ajude.service.UsuarioService;
 
@@ -32,12 +31,20 @@ public class UsuarioController {
 	public ResponseEntity<Collection<Usuario>> recuperarUsuarios() {
 		return new ResponseEntity<Collection<Usuario>>(this.usuarioService.recuperarUsuarios(), HttpStatus.OK);
 	}
-	
-	@RequestMapping("/teste")
-	public void tst() {
-		Usuario u = new Usuario("Luiggy", "Silva", "luiggy.silva@gmail.com", "666", "12345");
-		this.usuarioService.cadastrarUsuario(u);
+
+	@RequestMapping("/usuario/campanha/list")
+	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@RequestBody String email){
+		return new ResponseEntity<Collection<Campanha>>(this.usuarioService.recuperaCampanhasDoadasUsuario(email), HttpStatus.OK);
 	}
-	
+
+	@PutMapping("/usuario/campanha/doacao/{id}")
+	public  ResponseEntity<Doacao> doaCampanha(@RequestHeader("Authorization")String header ,@PathVariable long id,@RequestBody Doacao doacao){
+		Doacao novaDoacao = this.usuarioService.fazerDoacaoCampanha(header ,id, doacao);
+		if(novaDoacao != null){
+			return new ResponseEntity<Doacao>(novaDoacao,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Doacao>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
 }

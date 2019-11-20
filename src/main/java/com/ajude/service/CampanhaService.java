@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.ajude.DAO.DoacaoDAO;
 import com.ajude.model.*;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class CampanhaService {
     private LikeDAO<Like, Long> likesDAO;
 	@Autowired
 	private UsuarioService usuarioService;
-	//@Autowired
-	//private ComentarioRespostaDAO<ComentarioResposta,Long> comentariosRespostaDAO;
+	@Autowired
+    private DoacaoDAO<Doacao,Long> doacoesDAO;
 
 
 	public Campanha cadastrarCampanha(CampanhaDTO c, String token) {
@@ -164,7 +165,23 @@ public class CampanhaService {
 		}
 		return false;
 	}
-	
+
+
+	public ArrayList<String> recuperaDoadoresCampanha(long id){
+        ArrayList<String> listaUsuarios = new ArrayList<String>();
+        Optional<Campanha> campanha = this.campanhasDAO.findById(id);
+        if(campanha.isPresent()){
+            for (Doacao doacao : doacoesDAO.findAll()){
+                if(doacao.getCampanha().equals(campanha)){
+                    listaUsuarios.add(doacao.getUsuario());
+                }
+            }return listaUsuarios;
+        }
+        return  null;
+
+
+    }
+
 	private long getLikeId(Usuario u, Campanha c) {
 		long id = -1;
 		for (Like like : this.likesDAO.findAll()) {
@@ -175,6 +192,7 @@ public class CampanhaService {
 		}
 		return id;
 	}
+
 
 	public Collection<Campanha> recuperarCampanhas() {
 		return this.campanhasDAO.findAll();

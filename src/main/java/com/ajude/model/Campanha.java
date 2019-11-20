@@ -28,10 +28,10 @@ public class Campanha {
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
-    
-    
-    @ManyToOne
+
+	@ManyToOne
     private Usuario dono;
+
     
 	private int likesCount;
 	private int comentCount ;
@@ -39,6 +39,26 @@ public class Campanha {
 	@OneToMany(mappedBy = "campanha",
 			cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
+
+	@OneToMany
+	private List<Doacao> listaDoacoes;
+
+	public int getLikesCount() {
+		return likesCount;
+	}
+
+	public void setLikesCount(int likesCount) {
+		this.likesCount = likesCount;
+	}
+
+	public List<Doacao> getListaDoacoes() {
+		return listaDoacoes;
+	}
+
+	public void setListaDoacoes(List<Doacao> listaDoacoes) {
+		this.listaDoacoes = listaDoacoes;
+	}
+
 
     public Campanha(){
     	super();
@@ -57,6 +77,7 @@ public class Campanha {
         this.comentCount = 0;
         this.doacoes = 0.0;
         comentarios = new ArrayList<Comentario>();
+        listaDoacoes = new ArrayList<Doacao>();
     }
 
     private static String makeUrl(String str) {
@@ -86,6 +107,10 @@ public class Campanha {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public void addDoacao(Double novaDoacao){
+		this.doacoes += novaDoacao;
 	}
 
 	public String getDescricao() {

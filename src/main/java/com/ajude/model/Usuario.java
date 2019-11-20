@@ -2,6 +2,9 @@ package com.ajude.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -12,7 +15,9 @@ public class Usuario {
 	private String email;
 	private String cartaoCredito;
 	private String senha;
-	
+	@OneToMany
+	private List<Doacao> listaDoacoes;
+
 	public Usuario() {
 			super();
 	}
@@ -23,6 +28,15 @@ public class Usuario {
 		this.email = email;
 		this.cartaoCredito = cartaoCredito;
 		this.senha = senha;
+		this.listaDoacoes = new ArrayList<Doacao>();
+	}
+
+	public List<Doacao> getListaDoacoes() {
+		return listaDoacoes;
+	}
+
+	public void setListaDoacoes(List<Doacao> listaDoacoes) {
+		this.listaDoacoes = listaDoacoes;
 	}
 
 	public String getNome() {

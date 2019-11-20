@@ -1,8 +1,14 @@
 package com.ajude.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import com.ajude.DAO.CampanhaDAO;
+import com.ajude.DAO.DoacaoDAO;
+import com.ajude.model.Campanha;
+import com.ajude.model.Doacao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.ajude.DAO.UsuarioDAO;
 import com.ajude.model.Usuario;
@@ -20,7 +26,12 @@ public class UsuarioService {
 	private UsuarioDAO<Usuario, String> usuariosDAO;
 	@Autowired
 	private  JWTService jwtService;
-
+	@Autowired
+	private DoacaoDAO<Doacao,Long> doacoesDAO;
+	@Autowired
+	private CampanhaService campanhaService;
+	@Autowired
+	private CampanhaDAO<Campanha ,Long> campanhasDAO;
 	public UsuarioService() {
 	}
 
@@ -87,6 +98,39 @@ public class UsuarioService {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+
+	public Doacao fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
+		Usuario usuario = recuperaUsuarioToken(token);
+		Campanha campanha = campanhaService.recuperaCampanha(idCampanha);
+		System.out.println(doacao.getDoacao());
+		if(campanha != null && usuario != null) {
+			try {
+				Doacao novaDoacao = new Doacao(campanha, usuario, doacao.getDoacao());
+				campanha.addDoacao(doacao.getDoacao());
+				campanhasDAO.save(campanha);
+				return novaDoacao;
+			}catch (Exception e){
+				return null;
+			}
+		}return  null;
+	}
+
+	public Collection<Campanha> recuperaCampanhasDoadasUsuario(String email){
+		Usuario usuario = this.recuperarUsuario(email);
+		ArrayList<Campanha> listaCampanhas = new ArrayList<Campanha>();
+		if(usuario != null){
+			listaCampanhas = new ArrayList<Campanha>();
+			for (Doacao doacao : doacoesDAO.findAll()){
+				if(doacao.getUsuario().equals(usuario)){
+					listaCampanhas.add(doacao.getCampanha());
+
+				}
+			}return listaCampanhas;
+		}
+			return  null;
+
 	}
 
 	public Collection<Usuario> recuperarUsuarios() {

@@ -66,7 +66,7 @@ public class Comentario {
     	this.data = (new Date()).toString();
     	this.comentario = comentarioContent;
     	this.comentarioPai = comentarioPai;
-    	this.respostas = new ArrayList<Comentario>();
+    	respostas = new ArrayList<Comentario>();
     }
 	public Campanha getCampanha() {
 		return campanha;

@@ -1,16 +1,14 @@
 package com.ajude.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import com.ajude.model.CampanhaDTO;
-import com.ajude.model.Comentario;
+import com.ajude.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.ajude.model.Campanha;
-import com.ajude.model.Like;
 import com.ajude.service.CampanhaService;
 
 @RestController
@@ -92,11 +90,15 @@ public class CampanhaController {
 			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-//	//teste
-//	@GetMapping("/campanha/comentario/resposta/list")
-//	public ResponseEntity<Collection<ComentarioResposta>> listarComentariosRespostaTest(){
-//		return new ResponseEntity<Collection<ComentarioResposta>> (this.campanhaService.comentariosResposta(),HttpStatus.OK);
-//	}
+	@RequestMapping("campanha/usuarios/{id}")
+	public  ResponseEntity<Collection<String>> recuperaDoadoresCampanha(@PathVariable long id){
+		ArrayList<String> usuarios = this.campanhaService.recuperaDoadoresCampanha(id);
+		if(usuarios != null) {
+			return new ResponseEntity<Collection<String>>(usuarios, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Collection<String>>(HttpStatus.NOT_FOUND);
+
+		}
+	}
 
 }

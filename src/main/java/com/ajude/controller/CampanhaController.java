@@ -90,7 +90,7 @@ public class CampanhaController {
 			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@RequestMapping("campanha/usuarios/{id}")
+	@RequestMapping("/campanha/usuarios/{id}")
 	public  ResponseEntity<Collection<String>> recuperaDoadoresCampanha(@PathVariable long id){
 		ArrayList<String> usuarios = this.campanhaService.recuperaDoadoresCampanha(id);
 		if(usuarios != null) {
@@ -100,5 +100,12 @@ public class CampanhaController {
 
 		}
 	}
+	
+	@RequestMapping("/teste")
+	public  ResponseEntity<Collection<Doacao>> teste(){
+		return new ResponseEntity<Collection<Doacao>>(campanhaService.teste(),HttpStatus.OK);
+	}
+	
+	
 
 }

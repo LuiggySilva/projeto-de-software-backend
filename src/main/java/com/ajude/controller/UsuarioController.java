@@ -32,8 +32,8 @@ public class UsuarioController {
 		return new ResponseEntity<Collection<Usuario>>(this.usuarioService.recuperarUsuarios(), HttpStatus.OK);
 	}
 
-	@RequestMapping("/usuario/campanha/list")
-	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@RequestBody String email){
+	@RequestMapping("/usuario/campanha/list/{email}")
+	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@PathVariable String email){
 		return new ResponseEntity<Collection<Campanha>>(this.usuarioService.recuperaCampanhasDoadasUsuario(email), HttpStatus.OK);
 	}
 

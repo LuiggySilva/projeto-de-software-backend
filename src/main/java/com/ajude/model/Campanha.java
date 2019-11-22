@@ -154,8 +154,12 @@ public class Campanha {
 		this.dono = dono;
 	}
 
-	public int getLikes() {
+	public int getLikesCount() {
 		return likesCount;
+	}
+	
+	public void setLikesCount(int likesCount) {
+		this.likesCount = likesCount;
 	}
 
 	public void addLike() {
@@ -166,10 +170,6 @@ public class Campanha {
 		if(this.likesCount > 0) {
 			this.likesCount--;
 		}
-	}
-
-	public int getComentariosCount() {
-		return this.comentCount;
 	}
 	
 	public int getComentCount() {

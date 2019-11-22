@@ -76,8 +76,8 @@ public class Comentario {
 		this.campanha = campanha;
 	}
 
-	public String getUsuario() {
-		return usuario.getEmail();
+	public UsuarioDTO getUsuario() {
+		return new UsuarioDTO(this.usuario.getNome(), this.usuario.getSobrenome(), this.usuario.getEmail());
 	}
     
     public String getData() {

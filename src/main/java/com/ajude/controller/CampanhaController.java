@@ -2,6 +2,7 @@ package com.ajude.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import com.ajude.model.*;
 
@@ -95,17 +96,26 @@ public class CampanhaController {
 		ArrayList<String> usuarios = this.campanhaService.recuperaDoadoresCampanha(id);
 		if(usuarios != null) {
 			return new ResponseEntity<Collection<String>>(usuarios, HttpStatus.OK);
-		}else{
+		}
+		else{
 			return new ResponseEntity<Collection<String>>(HttpStatus.NOT_FOUND);
-
 		}
 	}
 	
-	@RequestMapping("/teste")
-	public  ResponseEntity<Collection<Doacao>> teste(){
-		return new ResponseEntity<Collection<Doacao>>(campanhaService.teste(),HttpStatus.OK);
+	@RequestMapping("/campanha/search")
+	public  ResponseEntity<Collection<Campanha>> procurarCampanhaSubString(@RequestBody String searching){
+		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.findBySubString(searching), HttpStatus.OK);
 	}
 	
+	@RequestMapping("/campanha/url/{url}")
+	public  ResponseEntity<Campanha> procurarCampanhaUrl(@PathVariable String url){
+		return new ResponseEntity<Campanha>(this.campanhaService.getCampanhaByURL(url), HttpStatus.OK);
+	}
+	
+	@RequestMapping("/campanha/ordenedBy/{ord}")
+	public  ResponseEntity<Collection<Campanha>> recuperarCampanhasOrdenadas(@PathVariable String ord){
+		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.getCampanhasOrdenadas(ord), HttpStatus.OK);
+	}
 	
 
 }

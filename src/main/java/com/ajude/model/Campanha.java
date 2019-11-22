@@ -2,6 +2,7 @@ package com.ajude.model;
 
 
 import java.text.Normalizer;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -13,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 
 @Entity
 public class Campanha {
@@ -24,7 +27,8 @@ public class Campanha {
     private String nomeCurto;
     private String url;
     private String descricao;
-    private String deadLine;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate deadLine;
     private StatusCampanha status;
     private Double meta;
     private Double doacoes;
@@ -63,7 +67,7 @@ public class Campanha {
         this.descricao = descricao;
         this.meta = meta;
         this.dono = dono;
-        this.deadLine = deadLine;
+        this.deadLine = LocalDate.parse(deadLine);
         this.url = makeUrl(this.nomeCurto);
         this.status = StatusCampanha.ATIVA;
         this.likesCount = 0;
@@ -78,6 +82,11 @@ public class Campanha {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("").replace(" ","-").replaceAll("[!#$%&'()*+,.:;?@[\\\\]_`{|}~]","").toLowerCase();
     }
+    
+    private void get() {
+		// TODO Auto-generated method stub
+
+	}
 
 	public long getId() {
 		return this.id;
@@ -92,6 +101,10 @@ public class Campanha {
 
 	public void setNomeCurto(String nomeCurto) {
 		this.nomeCurto = nomeCurto;
+	}
+	
+	public Double getPorcentagemConcluidaMeta() {
+		return ((this.doacoes * 100) / this.meta);
 	}
 
 	public String getUrl() {
@@ -114,11 +127,11 @@ public class Campanha {
 		this.descricao = descricao;
 	}
 
-	public String getDeadLine() {
+	public LocalDate getDeadLine() {
 		return deadLine;
 	}
 
-	public void setDeadLine(String deadLine) {
+	public void setDeadLine(LocalDate deadLine) {
 		this.deadLine = deadLine;
 	}
 
@@ -138,8 +151,8 @@ public class Campanha {
 		this.meta = meta;
 	}
 
-	public String getDono() {
-		return dono.getEmail();
+	public UsuarioDTO getDono() {
+		return new UsuarioDTO(this.dono.getNome(), this.dono.getSobrenome(), this.dono.getEmail());
 	}
 
 	public void setDono(Usuario dono) {

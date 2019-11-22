@@ -109,7 +109,7 @@ public class UsuarioService {
 			try {
 				Doacao novaDoacao = new Doacao(campanha, usuario, doacao.getDoacao());
 				campanha.addDoacao(doacao.getDoacao());
-				campanhasDAO.save(campanha);
+				campanhaService.salvarDoacao(novaDoacao);
 				return novaDoacao;
 			}catch (Exception e){
 				return null;
@@ -119,8 +119,11 @@ public class UsuarioService {
 
 	public Collection<Campanha> recuperaCampanhasDoadasUsuario(String email){
 		Usuario usuario = this.recuperarUsuario(email);
+		System.out.println(email);
+		System.out.println(usuario.getEmail());
 		ArrayList<Campanha> listaCampanhas = new ArrayList<Campanha>();
 		if(usuario != null){
+			System.out.println(doacoesDAO.findAll());
 			listaCampanhas = new ArrayList<Campanha>();
 			for (Doacao doacao : doacoesDAO.findAll()){
 				if(doacao.getUsuario().equals(usuario)){
@@ -129,7 +132,7 @@ public class UsuarioService {
 				}
 			}return listaCampanhas;
 		}
-			return  null;
+		return  null;
 
 	}
 

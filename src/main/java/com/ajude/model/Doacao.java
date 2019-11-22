@@ -2,6 +2,9 @@ package com.ajude.model;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 @Entity
@@ -12,6 +15,7 @@ public class Doacao {
     private long id;
     @ManyToOne
     private Usuario usuario;
+    @JsonIgnore
     @ManyToOne
     private Campanha campanha;
     private String data;

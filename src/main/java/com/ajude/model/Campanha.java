@@ -40,7 +40,8 @@ public class Campanha {
 			cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
 
-	@OneToMany
+	@OneToMany(mappedBy = "campanha",
+			cascade = CascadeType.ALL)
 	private List<Doacao> listaDoacoes;
 
 	public int getLikesCount() {

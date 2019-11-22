@@ -193,6 +193,9 @@ public class CampanhaService {
 		return id;
 	}
 
+	public void salvarDoacao(Doacao doacao) {
+		this.doacoesDAO.save(doacao);
+	}
 
 	public Collection<Campanha> recuperarCampanhas() {
 		return this.campanhasDAO.findAll();
@@ -206,6 +209,9 @@ public class CampanhaService {
 		return this.comentariosDAO.findAll();
 	}
 
+	public Collection<Doacao> teste(){
+		return doacoesDAO.findAll();
+	}
 
 
 }

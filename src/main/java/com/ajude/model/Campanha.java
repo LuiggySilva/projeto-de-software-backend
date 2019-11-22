@@ -44,14 +44,6 @@ public class Campanha {
 			cascade = CascadeType.ALL)
 	private List<Doacao> listaDoacoes;
 
-	public int getLikesCount() {
-		return likesCount;
-	}
-
-	public void setLikesCount(int likesCount) {
-		this.likesCount = likesCount;
-	}
-
 	public List<Doacao> getListaDoacoes() {
 		return listaDoacoes;
 	}

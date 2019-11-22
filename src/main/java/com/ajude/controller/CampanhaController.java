@@ -51,7 +51,9 @@ public class CampanhaController {
 	
 	@RequestMapping("/campanha/{id}")
 	public ResponseEntity<Campanha> recuperarCampanha(@PathVariable long id) {
-		return new ResponseEntity<Campanha>(this.campanhaService.recuperaCampanha(id), HttpStatus.OK);
+		Campanha c = this.campanhaService.recuperaCampanha(id);
+		System.out.println(c.getNomeCurto());
+		return new ResponseEntity<Campanha>(c, HttpStatus.OK);
 	}
 	
 	@RequestMapping("/campanha/list")

@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 
 @Entity
 public class Usuario {

@@ -15,8 +15,10 @@ public class Usuario {
 	private String email;
 	private String cartaoCredito;
 	private String senha;
-	@OneToMany
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Doacao> listaDoacoes;
+	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+	private List<Campanha> minhasCampanhas;
 
 	public Usuario() {
 			super();
@@ -29,6 +31,7 @@ public class Usuario {
 		this.cartaoCredito = cartaoCredito;
 		this.senha = senha;
 		this.listaDoacoes = new ArrayList<Doacao>();
+		this.minhasCampanhas = new ArrayList<Campanha>();
 	}
 
 	public List<Doacao> getListaDoacoes() {
@@ -37,6 +40,14 @@ public class Usuario {
 
 	public void setListaDoacoes(List<Doacao> listaDoacoes) {
 		this.listaDoacoes = listaDoacoes;
+	}
+	
+	public List<Campanha> getMinhasCampanhas() {
+		return minhasCampanhas;
+	}
+
+	public void setMinhasCampanhas(List<Campanha> minhasCampanhas) {
+		this.minhasCampanhas = minhasCampanhas;
 	}
 
 	public String getNome() {

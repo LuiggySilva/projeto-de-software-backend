@@ -24,7 +24,11 @@ public class UsuarioController {
 	
 	@RequestMapping("/usuario")
 	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String email) {
-		return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
+		Usuario usuario =  this.usuarioService.recuperarUsuario(email);
+		if(usuario != null) {
+			return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
 	}
 	
 	@RequestMapping("/usuario/list")

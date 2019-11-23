@@ -50,13 +50,6 @@ public class CampanhaService {
 	public Campanha recuperaCampanha(long id) {
 		try {
 			Campanha camp = campanhasDAO.findById(id).get();
-			ArrayList<Comentario> c = new ArrayList<Comentario>();
-			for (Comentario coment : this.comentariosDAO.findAll()) {
-				if (coment.getCampanha().equals(camp)) {
-					c.add(coment);
-				}
-			}
-			//camp.setComentarios(c);
 			return camp;
 		} catch (Exception e) {
 			return null;
@@ -143,7 +136,9 @@ public class CampanhaService {
 	public boolean removerComentarioCampanha(String token, long idComent) {
 		Usuario user = usuarioService.recuperaUsuarioToken(token);
 		Optional<Comentario> comentario = comentariosDAO.findById(idComent);
-		if (user != null && comentario.isPresent() && comentario.get().getUsuario().equals(user) ) {
+		System.out.println(comentario.get().getComentario());
+		
+		if (user != null && comentario.isPresent() && comentario.get().getUsuario().getEmail().equals(user.getEmail()) ) {
 			this.comentariosDAO.deleteById(idComent);
 			return true;
 		}

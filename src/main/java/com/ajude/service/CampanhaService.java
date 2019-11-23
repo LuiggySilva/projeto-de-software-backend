@@ -2,10 +2,16 @@ package com.ajude.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import com.ajude.DAO.DoacaoDAO;
 import com.ajude.model.*;
+import com.ajude.util.OrdenarCampanhaDeadLine;
+import com.ajude.util.OrdenarCampanhaLike;
+import com.ajude.util.OrdenarCampanhaMeta;
+
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +63,10 @@ public class CampanhaService {
 		}
 	}
 	
+	public Collection<Campanha> findBySubString(String campanha) {
+		return this.campanhasDAO.findBySubString(campanha);
+	}
+	
 	public boolean Like(String token, long id) {
 		Campanha c = this.recuperaCampanha(id);
 		Usuario u = this.usuarioService.recuperaUsuarioToken(token);
@@ -72,6 +82,32 @@ public class CampanhaService {
 			}
 			return true;
 		}
+	}
+	
+	public Collection<Campanha> getCampanhasOrdenadas(String ordenacao) {
+		List<Campanha> c = new ArrayList<Campanha>();
+		c = this.campanhasDAO.findAll();
+		switch (ordenacao) {
+		case "LIKE":
+			Collections.sort(c, new OrdenarCampanhaLike());
+		break;
+		case "DEADLINE":
+			Collections.sort(c, new OrdenarCampanhaDeadLine());
+		break;
+		default: // META
+			Collections.sort(c, new OrdenarCampanhaMeta());
+			break;
+		}
+		return c;
+	}
+	
+	public Campanha getCampanhaByURL(String url) {
+		for (Campanha c : this.campanhasDAO.findAll()) {
+			if(c.getUrl().equals(url)) {
+				return c;
+			}
+		}
+		return null;
 	}
 	
 	private void darLikeCampanha(Usuario u, Campanha c) {

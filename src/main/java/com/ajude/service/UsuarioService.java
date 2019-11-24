@@ -101,7 +101,7 @@ public class UsuarioService {
 	}
 
 
-	public Doacao fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
+	public Campanha fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
 		Usuario usuario = recuperaUsuarioToken(token);
 		Campanha campanha = campanhaService.recuperaCampanha(idCampanha);
 		System.out.println(doacao.getDoacao());

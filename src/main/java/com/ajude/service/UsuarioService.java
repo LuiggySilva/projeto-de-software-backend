@@ -101,7 +101,7 @@ public class UsuarioService {
 	}
 
 
-	public Doacao fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
+	public Campanha fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
 		Usuario usuario = recuperaUsuarioToken(token);
 		Campanha campanha = campanhaService.recuperaCampanha(idCampanha);
 		System.out.println(doacao.getDoacao());
@@ -110,7 +110,7 @@ public class UsuarioService {
 				Doacao novaDoacao = new Doacao(campanha, usuario, doacao.getDoacao());
 				campanha.addDoacao(doacao.getDoacao());
 				campanhaService.salvarDoacao(novaDoacao);
-				return novaDoacao;
+				return this.campanhasDAO.findById(campanha.getId()).get();
 			}catch (Exception e){
 				return null;
 			}

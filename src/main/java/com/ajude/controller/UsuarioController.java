@@ -42,12 +42,12 @@ public class UsuarioController {
 	}
 
 	@PutMapping("/usuario/campanha/doacao/{id}")
-	public  ResponseEntity<Doacao> doaCampanha(@RequestHeader("Authorization")String header ,@PathVariable long id,@RequestBody Doacao doacao){
-		Doacao novaDoacao = this.usuarioService.fazerDoacaoCampanha(header ,id, doacao);
-		if(novaDoacao != null){
-			return new ResponseEntity<Doacao>(novaDoacao,HttpStatus.OK);
+	public  ResponseEntity<Campanha> doaCampanha(@RequestHeader("Authorization")String header ,@PathVariable long id,@RequestBody Doacao doacao){
+		Campanha c = this.usuarioService.fazerDoacaoCampanha(header ,id, doacao);
+		if(c != null){
+			return new ResponseEntity<Campanha>(c,HttpStatus.OK);
 		}else{
-			return new ResponseEntity<Doacao>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Campanha>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

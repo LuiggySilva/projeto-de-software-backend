@@ -11,6 +11,6 @@ public enum StatusCampanha {
 	}
 	
 	public String getStatus() {
-		return this.status.strip();
+		return this.status;
 	}
 }

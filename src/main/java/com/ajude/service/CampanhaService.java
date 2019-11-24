@@ -182,15 +182,15 @@ public class CampanhaService {
 	}
 	
 	// Tem que ver se precisa referenciar o usuario que doou, acho que sim mas já sao 23:00hr e to cansado vou deixar assim por enquanto
-	public boolean fazerDoacaoCampanha(long idCamp, Double valor) {
+	public Campanha fazerDoacaoCampanha(long idCamp, Double valor) {
 		Campanha c = recuperaCampanha(idCamp);
 		if (c == null) {
-			return false;
+			return null;
 		}
 		else {
 			c.setDoacoes(valor);
 			this.campanhasDAO.save(c);
-			return true;
+			return this.recuperaCampanha(idCamp);
 		}
 	}
 	

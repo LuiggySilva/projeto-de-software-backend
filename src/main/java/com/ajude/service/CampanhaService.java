@@ -56,8 +56,17 @@ public class CampanhaService {
 		}
 	}
 	
-	public Collection<Campanha> findBySubString(String campanha) {
-		return this.campanhasDAO.findBySubString(campanha);
+	public Collection<Campanha> findBySubString(String campanha, String filtro) {
+		Collection<Campanha> c = this.campanhasDAO.findBySubString(campanha);
+		Collection<Campanha> resul = new ArrayList<Campanha>();
+		
+		for (Campanha cs : c) {
+			if(cs.getStatus().equals(filtro)) {
+				resul.add(cs);
+			}
+		}
+
+		return resul;
 	}
 	
 	public boolean Like(String token, long id) {
@@ -133,33 +142,30 @@ public class CampanhaService {
 	}
 	
 	//ccontador de comentarios na campnha nao implemntado aqui, a discutir...
-	public boolean removerComentarioCampanha(String token, long idComent) {
+	public Campanha removerComentarioCampanha(String token, long idComent) {
 		Usuario user = usuarioService.recuperaUsuarioToken(token);
 		Optional<Comentario> comentario = comentariosDAO.findById(idComent);
 		System.out.println(comentario.get().getComentario());
+		Campanha c = null;
 		
 		if (user != null && comentario.isPresent() && comentario.get().getUsuario().getEmail().equals(user.getEmail()) ) {
 			this.comentariosDAO.deleteById(idComent);
-			return true;
+			c = this.recuperaCampanha(comentario.get().getCampanha().getId());
 		}
-		else {
-			return false;
-		}
+		return c;
 	}
 	
-	public Comentario responderComentarioCampanha(long idComentario,  Comentario resposta,String token) {
+	public Campanha responderComentarioCampanha(long idComentario,  Comentario resposta,String token) {
 		Optional<Comentario> coment = comentariosDAO.findById(idComentario);
 		Usuario usuario = usuarioService.recuperaUsuarioToken(token);
-		
+		Campanha c = null;
 		
 		if (coment.isPresent() && usuario != null) {
 			Comentario novaResposta = new Comentario(usuario,resposta.getComentario(),coment.get());
 			comentariosDAO.save(novaResposta);
-			return novaResposta;
+			c = this.recuperaCampanha(this.comentariosDAO.getOne(idComentario).getCampanha().getId());
 		}
-		else {
-			return null;
-		}
+		return c;
 	}
 	public boolean removerRespostaComentarioCampanha(long idResposta,String token) {
 		Usuario usuario = usuarioService.recuperaUsuarioToken(token);

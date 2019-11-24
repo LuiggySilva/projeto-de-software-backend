@@ -110,7 +110,7 @@ public class UsuarioService {
 				Doacao novaDoacao = new Doacao(campanha, usuario, doacao.getDoacao());
 				campanha.addDoacao(doacao.getDoacao());
 				campanhaService.salvarDoacao(novaDoacao);
-				return novaDoacao;
+				return this.campanhasDAO.findById(campanha.getId()).get();
 			}catch (Exception e){
 				return null;
 			}

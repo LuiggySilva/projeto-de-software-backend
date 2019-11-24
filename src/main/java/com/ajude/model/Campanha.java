@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,7 +30,7 @@ public class Campanha {
     private String descricao;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate deadLine;
-    private StatusCampanha status;
+    private String status;
     private Double meta;
     private Double doacoes;
 
@@ -69,7 +70,7 @@ public class Campanha {
         this.dono = dono;
         this.deadLine = LocalDate.parse(deadLine);
         this.url = makeUrl(this.nomeCurto);
-        this.status = StatusCampanha.ATIVA;
+        this.status = StatusCampanha.ATIVA.getStatus();
         this.likesCount = 0;
         this.comentCount = 0;
         this.doacoes = 0.0;
@@ -82,11 +83,6 @@ public class Campanha {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("").replace(" ","-").replaceAll("[!#$%&'()*+,.:;?@[\\\\]_`{|}~]","").toLowerCase();
     }
-    
-    private void get() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public long getId() {
 		return this.id;
@@ -135,12 +131,28 @@ public class Campanha {
 		this.deadLine = deadLine;
 	}
 
-	public StatusCampanha getStatus() {
+	public String getStatus() {
+		if(this.deadLine.isBefore(LocalDate.now())) {
+			if(this.doacoes >= this.meta) {
+				this.status = StatusCampanha.CONCLUIDA.getStatus();
+			}
+			else {
+				this.status = StatusCampanha.VENCIDA.getStatus();
+			}
+		}
+		else {
+			if(this.doacoes >= this.meta) {
+				this.status = StatusCampanha.CONCLUIDA.getStatus();
+			}
+			else {
+				this.status = StatusCampanha.ATIVA.getStatus();
+			}
+		}
 		return status;
 	}
 
 	public void setStatus(StatusCampanha status) {
-		this.status = status;
+		this.status = status.getStatus();
 	}
 
 	public Double getMeta() {

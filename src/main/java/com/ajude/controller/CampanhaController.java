@@ -71,15 +71,14 @@ public class CampanhaController {
 	}
 	
 	@DeleteMapping("/campanha/comentario/{id}")
-	public ResponseEntity<Comentario> deletarComentario(@PathVariable long id,@RequestHeader("Authorization") String header){
-		boolean resul = this.campanhaService.removerComentarioCampanha(header, id);
-		if(resul) {
-			return new ResponseEntity<Comentario>(HttpStatus.OK);
+	public ResponseEntity<Campanha> deletarComentario(@PathVariable long id,@RequestHeader("Authorization") String header){
+		Campanha resul = this.campanhaService.removerComentarioCampanha(header, id);
+		if(resul != null) {
+			return new ResponseEntity<Campanha>(HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<Comentario>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Campanha>(HttpStatus.UNAUTHORIZED);
 		}
-		
 	}
 	
 	@GetMapping("/comentario/list")
@@ -88,13 +87,13 @@ public class CampanhaController {
 	}
 	
 	@PutMapping("/campanha/comentario/resposta/{id}")
-	public ResponseEntity<Comentario> responderComentario(@PathVariable long id,@RequestHeader("Authorization") String header, @RequestBody Comentario comentario){
-		Comentario resul = campanhaService.responderComentarioCampanha(id, comentario, header);
+	public ResponseEntity<Campanha> responderComentario(@PathVariable long id,@RequestHeader("Authorization") String header, @RequestBody Comentario comentario){
+		Campanha resul = campanhaService.responderComentarioCampanha(id, comentario, header);
 		if(resul != null) {
-			return new ResponseEntity<Comentario>(resul, HttpStatus.OK);
+			return new ResponseEntity<Campanha>(HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<Comentario>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Campanha>(HttpStatus.UNAUTHORIZED);
 		}
 	}
 	@RequestMapping("/campanha/usuarios/{id}")
@@ -108,9 +107,9 @@ public class CampanhaController {
 		}
 	}
 	
-	@RequestMapping("/campanha/search")
-	public  ResponseEntity<Collection<Campanha>> procurarCampanhaSubString(@RequestBody String searching){
-		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.findBySubString(searching), HttpStatus.OK);
+	@RequestMapping("/campanha/search/{filtro}")
+	public  ResponseEntity<Collection<Campanha>> procurarCampanhaSubString(@RequestBody String searching, @PathVariable String filtro){
+		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.findBySubString(searching,filtro), HttpStatus.OK);
 	}
 	
 	@RequestMapping("/campanha/url/{url}")

@@ -35,7 +35,7 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String token) {
 		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
 		if(usuario != null) {
-			return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
+			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 		}
 		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
 	}

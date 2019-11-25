@@ -16,6 +16,9 @@ public class UsuarioDTO {
 		this.sobrenome = sobrenome;
 		this.email = email;
 	}
+	public String getNickName() {
+		return this.email.split("@")[0];
+	}
 
 	public String getNome() {
 		return nome;

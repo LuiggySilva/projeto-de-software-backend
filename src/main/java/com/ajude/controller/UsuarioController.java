@@ -19,7 +19,11 @@ public class UsuarioController {
 	
 	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario u) {
-		return new ResponseEntity<Usuario>(this.usuarioService.cadastrarUsuario(u), HttpStatus.OK);
+		Usuario u = this.usuarioService.cadastrarUsuario(u);
+		if(u != null) {
+			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping("/usuario/email/{email}")
@@ -37,7 +41,7 @@ public class UsuarioController {
 		if(usuario != null) {
 			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 		}
-		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Usuario>( HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping("/usuario/list")

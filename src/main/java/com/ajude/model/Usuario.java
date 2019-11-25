@@ -34,6 +34,10 @@ public class Usuario {
 		this.listaDoacoes = new ArrayList<Doacao>();
 		this.minhasCampanhas = new ArrayList<Campanha>();
 	}
+	
+	public String getNickName() {
+		return this.email.split("@")[0];
+	}
 
 	public List<Doacao> getListaDoacoes() {
 		return listaDoacoes;

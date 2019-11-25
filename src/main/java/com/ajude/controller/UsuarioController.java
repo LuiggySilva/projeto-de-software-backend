@@ -22,7 +22,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(this.usuarioService.cadastrarUsuario(u), HttpStatus.OK);
 	}
 	
-	@RequestMapping("/usuario/{email}")
+	@RequestMapping("/usuario/email/{email}")
 	public ResponseEntity<Usuario> recuperarUsuario(@PathVariable String email) {
 		Usuario usuario =  this.usuarioService.recuperarUsuario(email);
 		if(usuario != null) {
@@ -31,7 +31,7 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
 	}
 	
-	@RequestMapping("/usuario/{token}")
+	@RequestMapping("/usuario/token/{token}")
 	public ResponseEntity<Usuario> recuperarUsuarioToken(@PathVariable String token) {
 		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
 		if(usuario != null) {

@@ -31,8 +31,8 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
 	}
 	
-	@RequestMapping("/usuario/token/{token}")
-	public ResponseEntity<Usuario> recuperarUsuarioToken(@PathVariable String token) {
+	@PutMapping("/usuario/token")
+	public ResponseEntity<Usuario> recuperarUsuarioToken(@RequestBody String token) {
 		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
 		if(usuario != null) {
 			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);

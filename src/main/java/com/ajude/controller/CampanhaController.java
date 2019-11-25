@@ -74,7 +74,7 @@ public class CampanhaController {
 	public ResponseEntity<Campanha> deletarComentario(@PathVariable long id,@RequestHeader("Authorization") String header){
 		Campanha resul = this.campanhaService.removerComentarioCampanha(header, id);
 		if(resul != null) {
-			return new ResponseEntity<Campanha>(HttpStatus.OK);
+			return new ResponseEntity<Campanha>(resul, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<Campanha>(HttpStatus.UNAUTHORIZED);

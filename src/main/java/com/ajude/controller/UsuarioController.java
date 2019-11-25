@@ -19,9 +19,9 @@ public class UsuarioController {
 	
 	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario u) {
-		Usuario u = this.usuarioService.cadastrarUsuario(u);
-		if(u != null) {
-			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+		Usuario user = this.usuarioService.cadastrarUsuario(u);
+		if(user != null) {
+			return new ResponseEntity<Usuario>(user, HttpStatus.OK);
 		}
 		return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 	}

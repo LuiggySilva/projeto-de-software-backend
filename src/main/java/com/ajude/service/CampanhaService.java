@@ -145,12 +145,13 @@ public class CampanhaService {
 	public Campanha removerComentarioCampanha(String token, long idComent) {
 		Usuario user = usuarioService.recuperaUsuarioToken(token);
 		Optional<Comentario> comentario = comentariosDAO.findById(idComent);
+		Long identificador = comentario.get().getCampanha().getId();
 		System.out.println(comentario.get().getComentario());
 		Campanha c = null;
 		
 		if (user != null && comentario.isPresent() && comentario.get().getUsuario().getEmail().equals(user.getEmail()) ) {
 			this.comentariosDAO.deleteById(idComent);
-			c = this.recuperaCampanha(comentario.get().getCampanha().getId());
+			c = this.recuperaCampanha(identificador);
 		}
 		return c;
 	}

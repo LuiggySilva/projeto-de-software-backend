@@ -32,7 +32,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/usuario/token")
-	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String token) {
+	public ResponseEntity<Usuario> recuperarUsuarioToken(@RequestBody String token) {
 		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
 		if(usuario != null) {
 			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);

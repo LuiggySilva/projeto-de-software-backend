@@ -107,7 +107,7 @@ public class CampanhaController {
 		}
 	}
 	
-	@RequestMapping("/campanha/search/{filtro}")
+	@PutMapping("/campanha/search/{filtro}")
 	public  ResponseEntity<Collection<Campanha>> procurarCampanhaSubString(@RequestBody String searching, @PathVariable String filtro){
 		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.findBySubString(searching,filtro), HttpStatus.OK);
 	}

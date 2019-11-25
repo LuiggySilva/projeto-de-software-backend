@@ -90,7 +90,7 @@ public class CampanhaController {
 	public ResponseEntity<Campanha> responderComentario(@PathVariable long id,@RequestHeader("Authorization") String header, @RequestBody Comentario comentario){
 		Campanha resul = campanhaService.responderComentarioCampanha(id, comentario, header);
 		if(resul != null) {
-			return new ResponseEntity<Campanha>(HttpStatus.OK);
+			return new ResponseEntity<Campanha>(resul, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<Campanha>(HttpStatus.UNAUTHORIZED);

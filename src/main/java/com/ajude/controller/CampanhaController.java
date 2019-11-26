@@ -85,7 +85,7 @@ public class CampanhaController {
 	public ResponseEntity<Collection<Comentario>> listarComentariosTest(){
 		return new ResponseEntity<Collection<Comentario>> (this.campanhaService.comentarios(),HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/campanha/comentario/resposta/{id}")
 	public ResponseEntity<Campanha> responderComentario(@PathVariable long id,@RequestHeader("Authorization") String header, @RequestBody Comentario comentario){
 		Campanha resul = campanhaService.responderComentarioCampanha(id, comentario, header);
@@ -106,21 +106,24 @@ public class CampanhaController {
 			return new ResponseEntity<Collection<String>>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PutMapping("/campanha/search/{filtro}")
+
+	/*@PutMapping("/campanha/search/{filtro}")
 	public  ResponseEntity<Collection<Campanha>> procurarCampanhaSubString(@RequestBody String searching, @PathVariable String filtro){
 		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.findBySubString(searching,filtro), HttpStatus.OK);
 	}
-	
+	*/
 	@RequestMapping("/campanha/url/{url}")
 	public  ResponseEntity<Campanha> procurarCampanhaUrl(@PathVariable String url){
 		return new ResponseEntity<Campanha>(this.campanhaService.getCampanhaByURL(url), HttpStatus.OK);
 	}
 	
-	@RequestMapping("/campanha/ordenedBy/{ord}")
+/*	@RequestMapping("/campanha/ordenedBy/{ord}")
 	public  ResponseEntity<Collection<Campanha>> recuperarCampanhasOrdenadas(@PathVariable String ord){
 		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.getCampanhasOrdenadas(ord), HttpStatus.OK);
-	}
+	}*/
 	
-
+	@PutMapping("/campanha/search/{filtro}/{ord}")
+	public  ResponseEntity<Collection<Campanha>> procurarCamapanhasFiltradas(@PathVariable("filtro") String filtro,@PathVariable("ord") String ord,@RequestBody String substring){
+		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.getCampanhaPorParametros(substring,filtro,ord), HttpStatus.OK);
+	}
 }

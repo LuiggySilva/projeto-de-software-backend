@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.ajude.model.Usuario;
+import com.ajude.model.UsuarioDTO;
 import com.ajude.service.UsuarioService;
 
 @RestController
@@ -23,22 +24,35 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/usuario")
-	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String email) {
-		Usuario usuario =  this.usuarioService.recuperarUsuario(email);
+	public ResponseEntity<UsuarioDTO> recuperarUsuario(@RequestBody String email) {
+		UsuarioDTO usuario =  this.usuarioService.recuperarUsuarioPublico(email);
 		if(usuario != null) {
-			return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
+			return new ResponseEntity<UsuarioDTO>(usuario, HttpStatus.OK);
 		}
-		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
+		return new ResponseEntity<UsuarioDTO>( HttpStatus.NOT_FOUND);
 	}
 	
 	@RequestMapping("/usuario/list")
-	public ResponseEntity<Collection<Usuario>> recuperarUsuarios() {
-		return new ResponseEntity<Collection<Usuario>>(this.usuarioService.recuperarUsuarios(), HttpStatus.OK);
+	public ResponseEntity<Collection<UsuarioDTO>> recuperarUsuarios() {
+		return new ResponseEntity<Collection<UsuarioDTO>>(this.usuarioService.recuperarUsuariosPublico(), HttpStatus.OK);
 	}
 
-	@RequestMapping("/usuario/campanha/list/{email}")
-	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@PathVariable String email){
-		return new ResponseEntity<Collection<Campanha>>(this.usuarioService.recuperaCampanhasDoadasUsuario(email), HttpStatus.OK);
+	@RequestMapping("/usuario/campanha/doacao/list/{email}")
+	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@PathVariable String email, @RequestBody(required = false) String subCampanha){
+		Collection<Campanha> campanhasDoadas = this.usuarioService.recuperaCampanhasDoadasUsuario(email,subCampanha);
+		if(campanhasDoadas != null) {
+			return new ResponseEntity<Collection<Campanha>>(campanhasDoadas, HttpStatus.OK);
+		}
+		return new ResponseEntity<Collection<Campanha>> (HttpStatus.NOT_FOUND);
+	}
+	
+	@RequestMapping("/usuario/campanha/criada/list/{email}")
+	public ResponseEntity<Collection<Campanha>> recuperaCampanhasUsuario(@PathVariable String email, @RequestBody(required = false) String subCampanha){
+		Collection<Campanha> campanhasCriadas = this.usuarioService.recuperaCampanhasCriadasUsuario(email, subCampanha);
+		if(campanhasCriadas != null) {
+			return new ResponseEntity<Collection<Campanha>>(campanhasCriadas, HttpStatus.OK);
+		}
+		return new ResponseEntity<Collection<Campanha>> (HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/usuario/campanha/doacao/{id}")

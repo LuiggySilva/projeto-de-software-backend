@@ -4,6 +4,7 @@ package com.ajude.model;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,16 +34,17 @@ public class Campanha {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate deadLine;
     private String status;
+    @NotNull
+    @Min(1)
     private Double meta;
-    private Double doacoes;
+   
 
-	@ManyToOne
-    private Usuario dono;
-
-    
+	private Double doacoes;
 	private int likesCount;
 	private int comentCount ;
-	
+	private String data;
+	@ManyToOne
+    private Usuario dono;
 	@OneToMany(mappedBy = "campanha",
 			cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
@@ -48,14 +52,6 @@ public class Campanha {
 	@OneToMany(mappedBy = "campanha",
 			cascade = CascadeType.ALL)
 	private List<Doacao> listaDoacoes;
-
-	public List<Doacao> getListaDoacoes() {
-		return listaDoacoes;
-	}
-
-	public void setListaDoacoes(List<Doacao> listaDoacoes) {
-		this.listaDoacoes = listaDoacoes;
-	}
 
 
     public Campanha(){
@@ -74,6 +70,7 @@ public class Campanha {
         this.likesCount = 0;
         this.comentCount = 0;
         this.doacoes = 0.0;
+        this.data = (new Date()).toString();
         comentarios = new ArrayList<Comentario>();
         listaDoacoes = new ArrayList<Doacao>();
     }
@@ -224,6 +221,23 @@ public class Campanha {
 	public void subComentariosCount() {
 		this.comentCount --;
 	}
+	
+	public List<Doacao> getListaDoacoes() {
+		return listaDoacoes;
+	}
+
+	public void setListaDoacoes(List<Doacao> listaDoacoes) {
+		this.listaDoacoes = listaDoacoes;
+	}
+	
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -254,7 +268,7 @@ public class Campanha {
 	
 	@Override
 	public String toString() {
-		return "Nome Curto: " + this.nomeCurto + " \n" + "Descricao " + this.descricao + " \n" + "id: " + this.id + "\n" + "email : "  + this.getDono();
+		return "DATA " + this.deadLine +  " Nome Curto: " + this.nomeCurto + " \n" ;
 		
 	}
     

@@ -10,9 +10,10 @@ public class OrdenarCampanhaDeadLine implements Comparator<Campanha> {
 	public int compare(Campanha o1, Campanha o2) {
 		boolean resul = o2.getDeadLine().isBefore(o1.getDeadLine());	
 		if (resul) {
-			return 1;
+			return -1;
 		} else {
-			return 0;
+			return 1;
 		}
 	}
 }
+

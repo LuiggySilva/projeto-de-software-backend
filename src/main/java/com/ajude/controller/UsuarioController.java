@@ -55,7 +55,7 @@ public class UsuarioController {
 		return new ResponseEntity<Collection<UsuarioDTO>>(this.usuarioService.recuperarUsuariosPublico(), HttpStatus.OK);
 	}
 
-	@RequestMapping("/usuario/campanha/doacao/list/{email}")
+	@PutMapping("/usuario/campanha/doacao/list/{email}")
 	public ResponseEntity<Collection<Campanha>> recuperaCampanhasDoadas(@PathVariable String email, @RequestBody(required = false) String subCampanha){
 		Collection<Campanha> campanhasDoadas = this.usuarioService.recuperaCampanhasDoadasUsuario(email,subCampanha);
 		if(campanhasDoadas != null) {
@@ -64,7 +64,7 @@ public class UsuarioController {
 		return new ResponseEntity<Collection<Campanha>> (HttpStatus.NOT_FOUND);
 	}
 	
-	@RequestMapping("/usuario/campanha/criada/list/{email}")
+	@PutMapping("/usuario/campanha/criada/list/{email}")
 	public ResponseEntity<Collection<Campanha>> recuperaCampanhasUsuario(@PathVariable String email, @RequestBody(required = false) String subCampanha){
 		Collection<Campanha> campanhasCriadas = this.usuarioService.recuperaCampanhasCriadasUsuario(email, subCampanha);
 		if(campanhasCriadas != null) {

@@ -32,6 +32,15 @@ public class UsuarioController {
 		return new ResponseEntity<UsuarioDTO>( HttpStatus.NOT_FOUND);
 	}
 	
+	@PutMapping("/usuario/token")
+	public ResponseEntity<Usuario> recuperarUsuarioToken(@RequestBody String token) {
+		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
+		if(usuario != null) {
+			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>( HttpStatus.BAD_REQUEST);
+	}
+	
 	@RequestMapping("/usuario/list")
 	public ResponseEntity<Collection<UsuarioDTO>> recuperarUsuarios() {
 		return new ResponseEntity<Collection<UsuarioDTO>>(this.usuarioService.recuperarUsuariosPublico(), HttpStatus.OK);

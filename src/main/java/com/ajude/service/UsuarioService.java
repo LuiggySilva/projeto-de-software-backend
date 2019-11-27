@@ -36,6 +36,10 @@ public class UsuarioService {
 	}
 
 	public Usuario cadastrarUsuario(Usuario u) {
+		if(!u.getEmail().contains("@")){
+			return null;
+		}
+		
 		Usuario user = this.recuperarUsuario(u.getEmail());
 		if(!(user == null)) { 			//usuario ja existe
 			return user;

@@ -19,16 +19,29 @@ public class UsuarioController {
 	
 	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario u) {
-		return new ResponseEntity<Usuario>(this.usuarioService.cadastrarUsuario(u), HttpStatus.OK);
+		Usuario user = this.usuarioService.cadastrarUsuario(u);
+		if(user != null) {
+			return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>(HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping("/usuario")
-	public ResponseEntity<Usuario> recuperarUsuario(@RequestBody String email) {
+	@RequestMapping("/usuario/email/{email}")
+	public ResponseEntity<Usuario> recuperarUsuario(@PathVariable String email) {
 		Usuario usuario =  this.usuarioService.recuperarUsuario(email);
 		if(usuario != null) {
 			return new ResponseEntity<Usuario>(this.usuarioService.recuperarUsuario(email), HttpStatus.OK);
 		}
 		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
+	}
+	
+	@PutMapping("/usuario/token")
+	public ResponseEntity<Usuario> recuperarUsuarioToken(@RequestBody String token) {
+		Usuario usuario =  this.usuarioService.recuperaUsuarioToken(token);
+		if(usuario != null) {
+			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>( HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping("/usuario/list")

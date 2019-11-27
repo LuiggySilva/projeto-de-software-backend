@@ -123,7 +123,7 @@ public class CampanhaController {
 	}*/
 	
 	@PutMapping("/campanha/search/{filtro}/{ord}")
-	public  ResponseEntity<Collection<Campanha>> procurarCamapanhasFiltradas(@PathVariable("filtro") String filtro,@PathVariable("ord") String ord,@RequestBody String substring){
+	public  ResponseEntity<Collection<Campanha>> procurarCamapanhasFiltradas(@PathVariable("filtro") String filtro,@PathVariable("ord") String ord,@RequestBody (required = false) String substring){
 		return new ResponseEntity<Collection<Campanha>>(this.campanhaService.getCampanhaPorParametros(substring,filtro,ord), HttpStatus.OK);
 	}
 }

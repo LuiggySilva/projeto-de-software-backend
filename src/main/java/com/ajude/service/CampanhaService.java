@@ -1,6 +1,7 @@
 package com.ajude.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -59,38 +60,43 @@ public class CampanhaService {
 
 	public Collection<Campanha> getCampanhaPorParametros(String campanhaSub, String filtro,String ordenacao){
 
+		List<Campanha> lista = new ArrayList<Campanha>() ;
 
+		
+		lista = findBySubString(campanhaSub,filtro);
+		getCampanhasOrdenadas(ordenacao,lista);
 
-		List<Campanha> saida ;
-
-		saida = (List<Campanha>) findBySubString(campanhaSub,filtro);
-		saida = (List<Campanha>) getCampanhasOrdenadas(ordenacao,saida);
-
-		if(campanhaSub.equals(" ")){
-			saida = saida.subList(0, 5);
-			return  saida;
+		if(campanhaSub == null){
+			if(lista.size() >= 5) {
+				lista = lista.subList(0, 5);
+			}
+			return  lista;
 		}else{
-			return saida;
+			return lista;
 		}
 
 	}
 
 
-	public Collection<Campanha> findBySubString(String campanha, String filtro) {
+	public List<Campanha> findBySubString(String campanha, String filtro) {
 
-		Collection<Campanha> c  ;
-		Collection<Campanha> resul = new ArrayList<Campanha>();
-		if(!campanha.equals(" ") ){
+		Collection<Campanha> c = new ArrayList<>();
+		List<Campanha> resul = new ArrayList<Campanha>();
+		if(campanha == null ){
 			c = campanhasDAO.findAll();
 		}else {
 			c = this.campanhasDAO.findBySubString(campanha);
 		}
-		for (Campanha cs : c) {
-			if(cs.getStatus().equals(filtro)) {
-				resul.add(cs);
+		if(filtro.equals("TODOS")) {
+			resul.addAll(c);
+		}else {
+			for (Campanha cs : c) {
+				if(cs.getStatus().equals(filtro)) {
+					resul.add(cs);
+				}
 			}
 		}
-
+		
 		return resul;
 	}
 
@@ -115,22 +121,24 @@ public class CampanhaService {
 	}
 
 
-	public Collection<Campanha> getCampanhasOrdenadas(String ordenacao, List<Campanha> campanhasList) {
-
-		List<Campanha> campanhas =  campanhasList;
-
+	public void getCampanhasOrdenadas(String ordenacao, List<Campanha> campanhasList) {
+		
+		List<Campanha> c = campanhasDAO.findAll();
+		Collections.sort(c, new OrdenarCampanhaDeadLine());
+		System.out.println(Arrays.toString(c.toArray()));
+		
 		switch (ordenacao) {
 		case "LIKE":
-			Collections.sort(campanhas, new OrdenarCampanhaLike());
+			Collections.sort(campanhasList, new OrdenarCampanhaLike());
 		break;
-		case "DEADLINE":
-			Collections.sort(campanhas, new OrdenarCampanhaDeadLine());
+		case "DEADLINE": 
+			Collections.sort(campanhasList, new OrdenarCampanhaDeadLine());
+			System.out.println(Arrays.toString(campanhasList.toArray()));
 		break;
 		default: // META
-			Collections.sort(campanhas, new OrdenarCampanhaMeta());
+			Collections.sort(campanhasList, new OrdenarCampanhaMeta());
 			break;
 		}
-		return campanhas;
 	}
 	
 	public Campanha getCampanhaByURL(String url) {

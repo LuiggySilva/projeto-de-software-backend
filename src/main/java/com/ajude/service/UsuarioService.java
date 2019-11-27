@@ -2,6 +2,8 @@ package com.ajude.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import com.ajude.DAO.CampanhaDAO;
 import com.ajude.DAO.DoacaoDAO;
@@ -14,6 +16,7 @@ import com.ajude.DAO.UsuarioDAO;
 import com.ajude.model.Usuario;
 import com.ajude.model.UsuarioDTO;
 import com.ajude.util.JavaMailApp;
+import com.ajude.util.OrdenaCampanhaDataCriacao;
 
 import javax.servlet.ServletException;
 
@@ -83,6 +86,23 @@ public class UsuarioService {
 		}
 	}
 
+	public UsuarioDTO recuperarUsuarioPublico(String email) {
+		try {
+			Usuario user = usuariosDAO.findById(email).get();
+
+			return  new UsuarioDTO(user.getNome(), user.getSobrenome(), user.getEmail());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public Collection<UsuarioDTO> recuperarUsuariosPublico() {
+		List<UsuarioDTO> saida = new ArrayList<>(); 
+		for(Usuario user : this.usuariosDAO.findAll()) {
+			 saida.add(new UsuarioDTO(user.getNome(), user.getSobrenome(), user.getEmail()));
+		 }
+		return saida;
+	}
 	public boolean verificaUsuario(String email, String senha) {
 		Usuario u = recuperarUsuario(email);
 		if(u == null || !u.getSenha().equals(senha)) {
@@ -121,7 +141,7 @@ public class UsuarioService {
 		}return  null;
 	}
 
-	public Collection<Campanha> recuperaCampanhasDoadasUsuario(String email){
+	public Collection<Campanha> recuperaCampanhasDoadasUsuario(String email, String campanhaSub){
 		Usuario usuario = this.recuperarUsuario(email);
 		System.out.println(email);
 		System.out.println(usuario.getEmail());
@@ -129,15 +149,43 @@ public class UsuarioService {
 		if(usuario != null){
 			System.out.println(doacoesDAO.findAll());
 			listaCampanhas = new ArrayList<Campanha>();
-			for (Doacao doacao : doacoesDAO.findAll()){
-				if(doacao.getUsuario().equals(usuario)){
-					listaCampanhas.add(doacao.getCampanha());
-
-				}
-			}return listaCampanhas;
+			for (Doacao doacao :usuario.getListaDoacoes()){
+				Campanha c = doacao.getCampanha();
+				if(campanhaSub != null){
+					if(c.getNomeCurto().toLowerCase().contains((campanhaSub).toLowerCase())
+					|| c.getDescricao().toLowerCase().contains((campanhaSub).toLowerCase())){
+						listaCampanhas.add(c);
+					}
+				}else {
+					listaCampanhas.add(c);
+				}	
+			}
+			Collections.sort(listaCampanhas,new OrdenaCampanhaDataCriacao());
+			return listaCampanhas;
 		}
 		return  null;
-
+	}
+	
+	public Collection<Campanha> recuperaCampanhasCriadasUsuario(String email, String campanhaSub){
+		Usuario usuario = this.recuperarUsuario(email);
+		System.out.println(email);
+		System.out.println(usuario.getEmail());
+		ArrayList<Campanha> listaCampanhas = new ArrayList<Campanha>();
+		if(usuario != null){
+			for (Campanha c :usuario.getMinhasCampanhas()){
+				if(campanhaSub != null){
+					if(c.getNomeCurto().contains(campanhaSub) || c.getDescricao().contains(campanhaSub)) {
+						listaCampanhas.add(c);
+					}
+				}else {
+					listaCampanhas.add(c);
+				}	
+			}
+			Collections.sort(listaCampanhas, new OrdenaCampanhaDataCriacao());
+			return listaCampanhas;
+		}else {
+			return null;
+		}
 	}
 
 	public Collection<Usuario> recuperarUsuarios() {

@@ -2,6 +2,8 @@ package com.ajude.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +21,8 @@ public class Doacao {
     @ManyToOne
     private Campanha campanha;
     private String data;
+    @NotNull
+    @Min(1)
     private Double doacao;
 
     public Doacao(){

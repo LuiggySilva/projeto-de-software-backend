@@ -55,11 +55,36 @@ public class CampanhaService {
 			return null;
 		}
 	}
-	
+
+
+	public Collection<Campanha> getCampanhaPorParametros(String campanhaSub, String filtro,String ordenacao){
+
+
+
+		List<Campanha> saida ;
+
+		saida = (List<Campanha>) findBySubString(campanhaSub,filtro);
+		saida = (List<Campanha>) getCampanhasOrdenadas(ordenacao,saida);
+
+		if(campanhaSub.equals(" ")){
+			saida = saida.subList(0, 5);
+			return  saida;
+		}else{
+			return saida;
+		}
+
+	}
+
+
 	public Collection<Campanha> findBySubString(String campanha, String filtro) {
-		Collection<Campanha> c = this.campanhasDAO.findBySubString(campanha);
+
+		Collection<Campanha> c  ;
 		Collection<Campanha> resul = new ArrayList<Campanha>();
-		
+		if(!campanha.equals(" ") ){
+			c = campanhasDAO.findAll();
+		}else {
+			c = this.campanhasDAO.findBySubString(campanha);
+		}
 		for (Campanha cs : c) {
 			if(cs.getStatus().equals(filtro)) {
 				resul.add(cs);
@@ -68,6 +93,9 @@ public class CampanhaService {
 
 		return resul;
 	}
+
+
+
 	
 	public boolean Like(String token, long id) {
 		Campanha c = this.recuperaCampanha(id);
@@ -85,22 +113,24 @@ public class CampanhaService {
 			return true;
 		}
 	}
-	
-	public Collection<Campanha> getCampanhasOrdenadas(String ordenacao) {
-		List<Campanha> c = new ArrayList<Campanha>();
-		c = this.campanhasDAO.findAll();
+
+
+	public Collection<Campanha> getCampanhasOrdenadas(String ordenacao, List<Campanha> campanhasList) {
+
+		List<Campanha> campanhas =  campanhasList;
+
 		switch (ordenacao) {
 		case "LIKE":
-			Collections.sort(c, new OrdenarCampanhaLike());
+			Collections.sort(campanhas, new OrdenarCampanhaLike());
 		break;
 		case "DEADLINE":
-			Collections.sort(c, new OrdenarCampanhaDeadLine());
+			Collections.sort(campanhas, new OrdenarCampanhaDeadLine());
 		break;
 		default: // META
-			Collections.sort(c, new OrdenarCampanhaMeta());
+			Collections.sort(campanhas, new OrdenarCampanhaMeta());
 			break;
 		}
-		return c;
+		return campanhas;
 	}
 	
 	public Campanha getCampanhaByURL(String url) {

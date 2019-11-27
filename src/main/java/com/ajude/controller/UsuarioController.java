@@ -24,7 +24,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/usuarioDTO/email/{email}")
-	public ResponseEntity<UsuarioDTO> recuperarUsuario(@PathVariable String email) {
+	public ResponseEntity<UsuarioDTO> recuperarUsuarioDTO(@PathVariable String email) {
 		UsuarioDTO usuario =  this.usuarioService.recuperarUsuarioPublico(email);
 		if(usuario != null) {
 			return new ResponseEntity<UsuarioDTO>(usuario, HttpStatus.OK);

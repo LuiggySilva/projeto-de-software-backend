@@ -23,13 +23,22 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(this.usuarioService.cadastrarUsuario(u), HttpStatus.OK);
 	}
 	
-	@RequestMapping("/usuario")
-	public ResponseEntity<UsuarioDTO> recuperarUsuario(@RequestBody String email) {
+	@RequestMapping("/usuarioDTO/email/{email}")
+	public ResponseEntity<UsuarioDTO> recuperarUsuario(@PathVariable String email) {
 		UsuarioDTO usuario =  this.usuarioService.recuperarUsuarioPublico(email);
 		if(usuario != null) {
 			return new ResponseEntity<UsuarioDTO>(usuario, HttpStatus.OK);
 		}
 		return new ResponseEntity<UsuarioDTO>( HttpStatus.NOT_FOUND);
+	}
+	
+	@RequestMapping("/usuario/email/{email}")
+	public ResponseEntity<Usuario> recuperarUsuario(@PathVariable String email) {
+		Usuario usuario =  this.usuarioService.recuperarUsuario(email);
+		if(usuario != null) {
+			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+		}
+		return new ResponseEntity<Usuario>( HttpStatus.NOT_FOUND);
 	}
 	
 	@PutMapping("/usuario/token")

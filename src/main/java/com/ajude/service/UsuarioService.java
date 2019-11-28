@@ -39,12 +39,8 @@ public class UsuarioService {
 	}
 
 	public Usuario cadastrarUsuario(Usuario u) {
-		if(!u.getEmail().contains("@")){
-			return null;
-		}
-		
 		Usuario user = this.recuperarUsuario(u.getEmail());
-		if(!(user == null)) { 			//usuario ja existe
+		if(!(user == null)) { 			
 			return user;
 		}
 		else {
@@ -128,7 +124,6 @@ public class UsuarioService {
 	public Campanha fazerDoacaoCampanha(String token , long idCampanha,Doacao doacao){
 		Usuario usuario = recuperaUsuarioToken(token);
 		Campanha campanha = campanhaService.recuperaCampanha(idCampanha);
-		System.out.println(doacao.getDoacao());
 		if(campanha != null && usuario != null) {
 			try {
 				Doacao novaDoacao = new Doacao(campanha, usuario, doacao.getDoacao());
@@ -143,11 +138,8 @@ public class UsuarioService {
 
 	public Collection<Campanha> recuperaCampanhasDoadasUsuario(String email, String campanhaSub){
 		Usuario usuario = this.recuperarUsuario(email);
-		System.out.println(email);
-		System.out.println(usuario.getEmail());
 		ArrayList<Campanha> listaCampanhas = new ArrayList<Campanha>();
 		if(usuario != null){
-			System.out.println(doacoesDAO.findAll());
 			listaCampanhas = new ArrayList<Campanha>();
 			for (Doacao doacao :usuario.getListaDoacoes()){
 				Campanha c = doacao.getCampanha();
@@ -168,8 +160,6 @@ public class UsuarioService {
 	
 	public Collection<Campanha> recuperaCampanhasCriadasUsuario(String email, String campanhaSub){
 		Usuario usuario = this.recuperarUsuario(email);
-		System.out.println(email);
-		System.out.println(usuario.getEmail());
 		ArrayList<Campanha> listaCampanhas = new ArrayList<Campanha>();
 		if(usuario != null){
 			for (Campanha c :usuario.getMinhasCampanhas()){
@@ -193,3 +183,4 @@ public class UsuarioService {
 	}
 	
 }
+

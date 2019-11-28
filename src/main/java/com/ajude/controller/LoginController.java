@@ -14,8 +14,12 @@ import com.ajude.model.Usuario;
 import com.ajude.service.JWTService;
 import com.ajude.service.UsuarioService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Controler de Login")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class LoginController {
 	
 	@Autowired
@@ -23,6 +27,7 @@ public class LoginController {
 	@Autowired
 	JWTService JWTS;
 	
+	@ApiOperation(value = "Autentica um usuario")
 	@PostMapping("/login")
 	public LoginResponse authenticate(@RequestBody Usuario usuario) throws ServletException {
 		if (US.recuperarUsuario(usuario.getEmail()) == null) {
@@ -33,19 +38,6 @@ public class LoginController {
 		}
 		String token = JWTS.geraToken(usuario.getEmail());
 		return new LoginResponse(token);
-	}
-	
-	@DeleteMapping("/user/remove")
-	public ResponseEntity<Usuario> removeUsuario( @RequestHeader("Authorization") String header) {
-		try {
-			String email = JWTS.getSujeitoDoToken(header);
-			if(JWTS.usuarioExiste(header)) {
-				return new ResponseEntity<Usuario>(US.removeUsuario(email),HttpStatus.OK);
-			}
-		}catch(ServletException e){
-			return new ResponseEntity<Usuario>(HttpStatus.FORBIDDEN);
-		}
-		return new ResponseEntity<Usuario>(HttpStatus.UNAUTHORIZED);
 	}
 	
 	@SuppressWarnings("unused")
@@ -65,3 +57,4 @@ public class LoginController {
 		}
 	}
 }
+

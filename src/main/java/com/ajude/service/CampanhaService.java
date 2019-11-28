@@ -123,10 +123,6 @@ public class CampanhaService {
 
 	public void getCampanhasOrdenadas(String ordenacao, List<Campanha> campanhasList) {
 		
-		List<Campanha> c = campanhasDAO.findAll();
-		Collections.sort(c, new OrdenarCampanhaDeadLine());
-		System.out.println(Arrays.toString(c.toArray()));
-		
 		switch (ordenacao) {
 		case "LIKE":
 			Collections.sort(campanhasList, new OrdenarCampanhaLike());
@@ -171,7 +167,6 @@ public class CampanhaService {
 		}
 		else {
 			Comentario coment = new Comentario(c, usuario, comentario.getComentario());
-			System.out.println(comentario.getComentario());
 			this.comentariosDAO.save(coment);
 			c.addComentariosCount();
 			this.campanhasDAO.save(c);
@@ -183,19 +178,11 @@ public class CampanhaService {
 	public Campanha removerComentarioCampanha(String token, long idComent) {
 		Usuario user = usuarioService.recuperaUsuarioToken(token);
 		Optional<Comentario> comentario = comentariosDAO.findById(idComent);
-		Long identificador;
-		if(comentario.get().getComentarioPai() != null){
-			identificador = comentario.get().getComentarioPai().getCampanha().getId();
-		}
-		else {
-			identificador = comentario.get().getCampanha().getId();
-		}
-		System.out.println(comentario.get().getComentario());
 		Campanha c = null;
 		
 		if (user != null && comentario.isPresent() && comentario.get().getUsuario().getEmail().equals(user.getEmail()) ) {
 			this.comentariosDAO.deleteById(idComent);
-			c = this.recuperaCampanha(identificador);
+			c = this.recuperaCampanha(comentario.get().getCampanha().getId());
 		}
 		return c;
 	}
@@ -227,15 +214,15 @@ public class CampanhaService {
 	}
 	
 	// Tem que ver se precisa referenciar o usuario que doou, acho que sim mas já sao 23:00hr e to cansado vou deixar assim por enquanto
-	public Campanha fazerDoacaoCampanha(long idCamp, Double valor) {
+	public boolean fazerDoacaoCampanha(long idCamp, Double valor) {
 		Campanha c = recuperaCampanha(idCamp);
 		if (c == null) {
-			return null;
+			return false;
 		}
 		else {
 			c.setDoacoes(valor);
 			this.campanhasDAO.save(c);
-			return this.recuperaCampanha(idCamp);
+			return true;
 		}
 	}
 	
@@ -297,3 +284,4 @@ public class CampanhaService {
 
 
 }
+
